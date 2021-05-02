@@ -1,5 +1,5 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
+import fb from "firebase";
 export const config = {
   apiKey: "AIzaSyBK8X_PcqdAP_6dMCIeBvkOaGzDH7iZD4E",
   authDomain: "covid19-fighter-44e0d.firebaseapp.com",
@@ -10,3 +10,7 @@ export const config = {
   appId: "1:305038746258:web:f20d869e97cb77dc037c4b",
   measurementId: "G-G5NBJNT1NZ",
 };
+
+const firebase = !fb.apps.length ? fb.initializeApp(config) : fb.app();
+
+export default firebase;

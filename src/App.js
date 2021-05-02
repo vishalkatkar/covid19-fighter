@@ -7,18 +7,8 @@ import Donate from "./containers/Donate/donate";
 import GetHelp from "./containers/get-help";
 import Dashboard from "./containers/Dashboard";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import firebase from "firebase";
-import { config } from "./firebase";
 
 function App() {
-  useEffect(() => {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    } else {
-      firebase.app();
-    }
-  }, []);
-
   return (
     <Provider store={store}>
       <Router>

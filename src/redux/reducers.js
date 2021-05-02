@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import dashbaordReducer from "../containers/Dashboard/reducer";
+import dashboardReducer from "../containers/Dashboard/reducer";
 
 const createReducer = () => {
   const comnbinedAppReducer = combineReducers({
-    dashbaordReducer,
+    dashboardReducer,
   });
 
   const rootReducer = (state, action) => {

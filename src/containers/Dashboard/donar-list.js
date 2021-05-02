@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Table } from "reactstrap";
 import { useDonerList } from "./hooks";
+import Filters from "./Filters";
 
 const DonarList = () => {
   const { donarList } = useDonerList();
@@ -9,6 +10,7 @@ const DonarList = () => {
   return (
     <Container>
       <h2>Doner List:</h2>
+      <Filters />
       <Table striped bordered>
         <thead>
           <tr>
