@@ -15,10 +15,10 @@ const Home = () => {
         <section>
           <div className="mb-2">
             <Button variant="primary" size="lg" onClick={handleClick}>
-              Get Help
+              Donate
             </Button>{' '}
             <Button variant="secondary" size="lg">
-              Help Others
+              Get Help
             </Button>
           </div>
         </section>
