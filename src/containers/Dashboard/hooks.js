@@ -8,10 +8,13 @@ export const useDonerList = () => {
   const donarList_ = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
   );
+  const filterDonarList = useSelector(
+    ({ dashboardReducer }) => dashboardReducer.filterDonarList
+  );
   const appliedFilters = useSelector(
     ({ dashboardReducer }) => dashboardReducer.appliedFilters
   );
-  const [donarList, setDonarList_] = useState(donarList_);
+  const [donarList, setDonarList_] = useState(filterDonarList);
 
   useEffect(() => {
     const dbRef = firebase.database().ref();
@@ -32,16 +35,7 @@ export const useDonerList = () => {
   }, []);
 
   useEffect(() => {
-    const { donateType, state, city } = appliedFilters;
-    if (donateType && state && city) {
-      const filterList = donarList.filter(
-        (donar) =>
-          donar.donateType === donateType &&
-          donar.state === state &&
-          donar.city === city
-      );
-      setDonarList(filterList);
-    }
+    setDonarList(filterDonarList);
   }, [appliedFilters]);
 
   const handleClearFilter = () => {
