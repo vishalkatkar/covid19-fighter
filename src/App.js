@@ -1,12 +1,17 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { useEffect } from "react";
 import Home from "./containers/home";
 import Donate from "./containers/donate";
 import GetHelp from "./containers/get-help";
 import Dashboard from "./containers/dashboard";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import firebase from "firebase";
+import { config } from "./firebase";
 
 function App() {
+  useEffect(() => {
+    firebase.initializeApp(config);
+  }, []);
+
   return (
     <Router>
       <Switch>
