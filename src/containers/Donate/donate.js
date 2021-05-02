@@ -9,6 +9,7 @@ import {
   Label,
   Input,
   FormText,
+  FormFeedback
 } from "reactstrap";
 
 const Donate = () => {
@@ -28,13 +29,8 @@ const Donate = () => {
         <Form className="center-block col-md-4">
           <FormGroup>
             <Label for="exampleSelect">What you want to donate?</Label>
-            <Input
-              type="select"
-              name="select"
-              id="exampleSelect"
-              required
-              onChange={(e) => setDonateType(e.target.value)}
-            >
+            <Input type="select" name="select" id="exampleSelect" required onChange={(e) => setDonateType(e.target.value)}>
+              <option value="">----Select-----</option>
               <option value="oxygen">oxygen</option>
               <option value="plasma">plasma</option>
               <option value="medicine">medicine</option>
@@ -92,6 +88,12 @@ const Donate = () => {
               placeholder="No of cylinder want to donate"
               onChange={(e) => setNoOfCylinder(e.target.value)}
             />
+          </FormGroup>
+          <FormGroup>
+            <Label for="examplePassword">Invalid input</Label>
+            <Input valid />
+            <FormFeedback tooltip>Oh noes! that name is already taken</FormFeedback>
+            <FormText>Example help text that remains unchanged.</FormText>
           </FormGroup>
           <Button variant="primary" onClick={handleSubmit}>
             Submit

@@ -15,7 +15,7 @@ const Filters = () => {
   return (
     <Form>
       <FormGroup>
-        <Label for="exampleSelect">What you want to donate?</Label>
+        <Label for="exampleSelect">Donation Type</Label>
         <Input
           type="select"
           name="select"
