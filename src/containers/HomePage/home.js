@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./home.css";
 import { useHome } from "./hooks";
 import Header from "../Header";
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button } from 'reactstrap';
 
 const Home = () => {
   const {
