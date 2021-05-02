@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../Header";
 import { useDonate } from './hooks';
-import { Container, Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Container, Button, Form, FormGroup, Label, Input, FormText, FormFeedback } from "reactstrap";
 
 const Donate = () => {
   const {
@@ -22,6 +22,7 @@ const Donate = () => {
           <FormGroup>
             <Label for="exampleSelect">What you want to donate?</Label>
             <Input type="select" name="select" id="exampleSelect" required onChange={(e) => setDonateType(e.target.value)}>
+              <option value="">----Select-----</option>
               <option value="oxygen">oxygen</option>
               <option value="plasma">plasma</option>
               <option value="medicine">medicine</option>
@@ -72,9 +73,15 @@ const Donate = () => {
               onChange={(e) => setNoOfCylinder(e.target.value)}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="examplePassword">Invalid input</Label>
+            <Input valid />
+            <FormFeedback tooltip>Oh noes! that name is already taken</FormFeedback>
+            <FormText>Example help text that remains unchanged.</FormText>
+          </FormGroup>
           <Button variant="primary" onClick={handleSubmit}>
             Submit
-      </Button>
+          </Button>
         </Form>
       </Container>
     </div>

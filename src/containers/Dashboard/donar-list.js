@@ -9,7 +9,7 @@ const DonarList = () => {
   return (
     <Container>
       <h2>Doner List:</h2>
-      <Table>
+      <Table striped bordered>
         <thead>
           <tr>
             <th>#</th>
@@ -35,7 +35,7 @@ const DonarList = () => {
 
                 return (
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{index + 1}</th>
                     <td>{donarName}</td>
                     <td>{mobileNumber}</td>
                     <td>{donateType}</td>

@@ -10,8 +10,8 @@ export const useDonerList = () => {
   );
 
   useEffect(() => {
-    const dbRef = firebase.database().ref();
-    dbRef
+    const donerData = firebase.database().ref();
+    donerData
       .child("donarsList")
       .get()
       .then((snapshot) => {

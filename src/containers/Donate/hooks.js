@@ -9,10 +9,8 @@ export const useDonate = () => {
     const [donarName, setName] = useState(null);
     const [mobileNumber, setMobileNumber] = useState(null);
     const [noOfCylinder, setNoOfCylinder] = useState(null);
-    const handleSubmit = () => {
-        debugger;
-        try {
-          console.log("test");
+    const handleSubmit = () => { 
+          try {
           const reqObject = {
             donateType: donateType,
             state: state,
