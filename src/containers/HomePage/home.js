@@ -3,7 +3,7 @@ import styles from "./home.css";
 import { useHome } from "./hooks";
 import Header from "../Header";
 import Dashboard from "../Dashboard";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button } from "reactstrap";
 
 const Home = () => {
   const { handleClick } = useHome();

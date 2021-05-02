@@ -1,6 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
-import { Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import { useDonerList } from "./hooks";
 
 const DonarList = () => {
