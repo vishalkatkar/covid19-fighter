@@ -1,13 +1,17 @@
-import { useEffect } from "react";
-import firebase from "firebase";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDonarList } from "./actions";
+import firebase from "../../firebase";
 
 export const useDonerList = () => {
   const dispatch = useDispatch();
-  const donarList = useSelector(
-    ({ dashbaordReducer }) => dashbaordReducer.donarList
+  const donarList_ = useSelector(
+    ({ dashboardReducer }) => dashboardReducer.donarList
   );
+  const appliedFilters = useSelector(
+    ({ dashboardReducer }) => dashboardReducer.appliedFilters
+  );
+  const [donarList, setDonarList_] = useState(donarList_);
 
   useEffect(() => {
     const dbRef = firebase.database().ref();
@@ -27,5 +31,22 @@ export const useDonerList = () => {
       });
   }, []);
 
-  return { donarList };
+  useEffect(() => {
+    const { donateType, state, city } = appliedFilters;
+    if (donateType && state && city) {
+      const filterList = donarList.filter(
+        (donar) =>
+          donar.donateType === donateType &&
+          donar.state === state &&
+          donar.city === city
+      );
+      setDonarList(filterList);
+    }
+  }, [appliedFilters]);
+
+  const handleClearFilter = () => {
+    setDonarList_(donarList_);
+  };
+
+  return { donarList, handleClearFilter };
 };

@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import Header from "../Header";
-import { useDonate } from './hooks';
-import { Container, Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { useDonate } from "./hooks";
+import {
+  Container,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+} from "reactstrap";
 
 const Donate = () => {
   const {
@@ -11,9 +19,8 @@ const Donate = () => {
     setCity,
     setName,
     setMobileNumber,
-    setNoOfCylinder
-  } =
-    useDonate();
+    setNoOfCylinder,
+  } = useDonate();
   return (
     <div>
       <Header />
@@ -21,7 +28,13 @@ const Donate = () => {
         <Form className="center-block col-md-4">
           <FormGroup>
             <Label for="exampleSelect">What you want to donate?</Label>
-            <Input type="select" name="select" id="exampleSelect" required onChange={(e) => setDonateType(e.target.value)}>
+            <Input
+              type="select"
+              name="select"
+              id="exampleSelect"
+              required
+              onChange={(e) => setDonateType(e.target.value)}
+            >
               <option value="oxygen">oxygen</option>
               <option value="plasma">plasma</option>
               <option value="medicine">medicine</option>
@@ -29,10 +42,14 @@ const Donate = () => {
           </FormGroup>
           <FormGroup>
             <Label for="exampleSelect">State</Label>
-            <Input type="select" required onChange={(e) => setState(e.target.value)}>
+            <Input
+              type="select"
+              required
+              onChange={(e) => setState(e.target.value)}
+            >
               <option value="" selected>
                 State
-          </option>
+              </option>
               <option value="maharashtra">Maharashtra</option>
               <option value="utterpradesh">Utterpradesh</option>
               <option value="delhi">Delhi</option>
@@ -40,10 +57,14 @@ const Donate = () => {
           </FormGroup>
           <FormGroup>
             <Label for="exampleSelect">City</Label>
-            <Input type="select" required onChange={(e) => setCity(e.target.value)}>
+            <Input
+              type="select"
+              required
+              onChange={(e) => setCity(e.target.value)}
+            >
               <option value="" selected>
                 City
-        </option>
+              </option>
               <option value="pune">Pune</option>
               <option value="kanpur">Kanpur</option>
               <option value="delhi">Delhi</option>
@@ -74,11 +95,11 @@ const Donate = () => {
           </FormGroup>
           <Button variant="primary" onClick={handleSubmit}>
             Submit
-      </Button>
+          </Button>
         </Form>
       </Container>
     </div>
-  )
+  );
 };
 
 export default Donate;
