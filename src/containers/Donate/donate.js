@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../Header";
-import { Container } from 'react-bootstrap';
+import { Container } from "react-bootstrap";
 import firebase from "firebase";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
@@ -24,60 +24,62 @@ const Donate = () => {
         mobileNumber: mobileNumber,
         noOfCylinder: noOfCylinder,
       };
-      firebase.database().ref("donarsList/").set(reqObject);
+      const donerlistRef = firebase.database().ref("donarsList");
+      donerlistRef.push().set(reqObject);
     } catch (err) {
       console.log("error::", err);
     }
   };
-  return <div>
-    <Header />
-    <Container>
-      <Form>
-        <select required onChange={(e) => setDonateType(e.target.value)}>
-          <option value="" selected>
-            What you want to donate?
-        </option>
-          <option value="oxygen">oxygen</option>
-          <option value="plasma">plasma</option>
-          <option value="medicine">medicine</option>
-        </select>
-        <select required onChange={(e) => setState(e.target.value)}>
-          <option value="" selected>
-            State
-        </option>
-          <option value="maharashtra">Maharashtra</option>
-          <option value="utterpradesh">Utterpradesh</option>
-          <option value="delhi">Delhi</option>
-        </select>
-        <select required onChange={(e) => setCity(e.target.value)}>
-          <option value="" selected>
-            City
-        </option>
-          <option value="pune">Pune</option>
-          <option value="kanpur">Kanpur</option>
-          <option value="delhi">Delhi</option>
-        </select>
-        <Input
-          placeholder="name"
-          required
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Input
-          placeholder="mobile number"
-          required
-          onChange={(e) => setMobileNumber(e.target.value)}
-        />
-        <Input
-          placeholder="No of cylinder want to donate"
-          onChange={(e) => setNoOfCylinder(e.target.value)}
-        />
-        <Button variant="primary" onClick={handleSubmit}>
-          Submit
-      </Button>
-      </Form>
-    </Container>
-  </div>;
+  return (
+    <div>
+      <Header />
+      <Container>
+        <Form>
+          <select required onChange={(e) => setDonateType(e.target.value)}>
+            <option value="" selected>
+              What you want to donate?
+            </option>
+            <option value="oxygen">oxygen</option>
+            <option value="plasma">plasma</option>
+            <option value="medicine">medicine</option>
+          </select>
+          <select required onChange={(e) => setState(e.target.value)}>
+            <option value="" selected>
+              State
+            </option>
+            <option value="maharashtra">Maharashtra</option>
+            <option value="utterpradesh">Utterpradesh</option>
+            <option value="delhi">Delhi</option>
+          </select>
+          <select required onChange={(e) => setCity(e.target.value)}>
+            <option value="" selected>
+              City
+            </option>
+            <option value="pune">Pune</option>
+            <option value="kanpur">Kanpur</option>
+            <option value="delhi">Delhi</option>
+          </select>
+          <Input
+            placeholder="name"
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            placeholder="mobile number"
+            required
+            onChange={(e) => setMobileNumber(e.target.value)}
+          />
+          <Input
+            placeholder="No of cylinder want to donate"
+            onChange={(e) => setNoOfCylinder(e.target.value)}
+          />
+          <Button variant="primary" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Form>
+      </Container>
+    </div>
+  );
 };
 
 export default Donate;
-
