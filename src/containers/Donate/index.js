@@ -10,21 +10,30 @@ import {
   Input,
   FormText,
   FormFeedback,
+  UncontrolledAlert,
+  ToastBody
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
-const Donate = () => {
+const Donate = (props) => {
   const {
     handleSubmit,
     setDonateType,
+    donateType,
     state,
     city,
     setPincode,
     setName,
     setMobileNumber,
+    setAge,
     setNoOfCylinder,
+    setBloogGroup,
+    setMedicineName,
+    setNoOfbed,
+    setBlock,
+    postOffice
   } = useDonate();
-  console.log({ city: city }, { state: state })
+console.log({postOffice:postOffice});
   return (
     <div style={{
       backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
@@ -33,81 +42,155 @@ const Donate = () => {
       minHeight: window.innerHeight + 'px'
     }}>
       <Header />
+      { city &&
+      <UncontrolledAlert color="danger" className="float-right">
+        I am an alert and I can be dismissed!
+      </UncontrolledAlert>
+      }
       <Container className="p-4">
         <Form className="col-md-7 bg-light p-4 rounded-sm" style={{ margin: '0 auto' }}>
-          <FormGroup>
-            <Label for="exampleSelect">What you want to donate?</Label>
-            <Input
-              type="select"
-              name="select"
-              id="exampleSelect"
-              required
-              onChange={(e) => setDonateType(e.target.value)}
-            >
-              <option value="">----Select-----</option>
-              {COVID_HELP_MAIN_CATEGORY.map((category) => (
-                <option value={category.value}>{category.title}</option>
-              ))}
-            </Input>
+          <h3 className="text-center mb-4">Donar Form</h3>
+          <FormGroup tag="fieldset">
+            <Label for="donationType">Donation Type</Label>
+            <FormGroup check className="col-12" onChange={(e) => setDonateType(e.target.value)}>
+              <Label check className="col-3">
+                <Input type="radio" name="radio1" value="oxygen" />{' '}
+                Oxygen
+              </Label>
+              <Label check className="col-3">
+                <Input type="radio" name="radio1" value="plasma" />{' '}
+                  Plasma
+                </Label>
+              <Label check className="col-3">
+                <Input type="radio" name="radio1" value="medicine" />{' '}
+                  Medicine
+                </Label>
+              <Label check className="col-3">
+                <Input type="radio" name="radio1" value="bed" />{' '}
+                  Bed
+                </Label>
+            </FormGroup>
           </FormGroup>
           <FormGroup>
-            <Label for="exampleSelect">Name</Label>
+            <Label for="name">Name</Label>
             <Input
               type="text"
               placeholder="name"
+              id="name"
               required
               onChange={(e) => setName(e.target.value)}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleSelect">Mobile Number</Label>
+            <Label for="mobile">Mobile Number</Label>
             <Input
               type="number"
               placeholder="mobile number"
               required
+              id="mobile"
               onChange={(e) => setMobileNumber(e.target.value)}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="exampleSelect">Pincode</Label>
+            <Label for="age">Age</Label>
+            <Input
+              type="number"
+              placeholder="Age"
+              required
+              min={0}
+              max={100}
+              id="age"
+              onChange={(e) => setAge(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="pincodeSelect">Pincode</Label>
             <Input
               type="number"
               placeholder="PinCode"
               required
+              id="pincodeSelect"
               onChange={(e) => setPincode(e.target.value)}
             />
           </FormGroup>
           {state && state !== '' && <FormGroup>
-            <Label for="exampleSelect">State</Label>
+            <Label for="stateSelect">State</Label>
             <Input
               type="text"
+              id="stateSelect"
+              disabled
               value={state}
             />
           </FormGroup>}
           {city && city !== '' && <FormGroup>
-            <Label for="exampleSelect">City</Label>
+            <Label for="citySelect">City</Label>
             <Input
               type="text"
+              id="citySelect"
+              disabled
               value={city}
             />
           </FormGroup>}
+          {
+            postOffice.length !== 0 &&
+            <FormGroup>
+            <Label for="blockSelect">Select block</Label>
+            <Input type="select" name="select" id="blockSelect" required onChange={(e) => setBlock(e.target.value)}>
+            <option value="">----Select-----</option>
+            {
+              postOffice.map((item) =>
+              <option value={item.Block}>{item.Block}</option>
+              )
+            }
+            </Input>
+            </FormGroup>
+          }
+          { donateType && donateType === "oxygen" &&
           <FormGroup>
-            <Label for="exampleSelect">Number of cylinder available</Label>
+            <Label for="oxygenAvailable">Number of cylinders available</Label>
             <Input
               type="number"
-              placeholder="No of cylinder want to donate"
+              placeholder="Number of cylinders available"
+              id="oxygenAvailable"
               onChange={(e) => setNoOfCylinder(e.target.value)}
             />
           </FormGroup>
+          }
+          { donateType && donateType === "plasma" &&
           <FormGroup>
-            <Label for="examplePassword">Invalid input</Label>
-            <Input valid />
-            <FormFeedback tooltip>
-              Oh noes! that name is already taken
-            </FormFeedback>
-            <FormText>Example help text that remains unchanged.</FormText>
+            <Label for="bloogGroupSelect">Select blood group</Label>
+            <Input type="select" name="select" id="bloogGroupSelect" required onChange={(e) => setBloogGroup(e.target.value)}>
+              <option value="">----Select-----</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+            </Input>
           </FormGroup>
-          <Button color="primary" onClick={handleSubmit} size="lg" block>
+          }
+          { donateType && donateType === "medicine" &&
+          <FormGroup>
+            <Label for="medicineName">Name of medicine</Label>
+            <Input
+              type="text"
+              placeholder="Name of medicine"
+              id="medicineName"
+              onChange={(e) => setMedicineName(e.target.value)}
+            />
+          </FormGroup>
+          }
+          { donateType && donateType === "bed" &&
+          <FormGroup>
+            <Label for="bedAvailable">Number of beds available</Label>
+            <Input
+              type="number"
+              placeholder="Number of beds available"
+              id="bedAvailable"
+              onChange={(e) => setNoOfbed(e.target.value)}
+            />
+          </FormGroup>
+          }
+          <Button color="primary" onClick={() => handleSubmit("donerList")} size="lg" block>
             Submit
           </Button>
         </Form>

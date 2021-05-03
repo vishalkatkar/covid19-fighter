@@ -9,15 +9,22 @@ export const useDonate = () => {
   const [pinCode, setPincode] = useState(null);
   const [donarName, setName] = useState(null);
   const [mobileNumber, setMobileNumber] = useState(null);
+  const [age, setAge] = useState(null);
   const [noOfCylinder, setNoOfCylinder] = useState(null);
+  const [bloodGroup, setBloogGroup] = useState(null);
+  const [medicineName, setMedicineName] = useState(null);
+  const [noOfBed, setNoOfbed] = useState(null);
+  const [block, setBlock] = useState(null);
+  const [postOffice, setPostOffice] = useState([]);
+
   useEffect(() => {
     if(pinCode && pinCode.length === 6) {
       const apiURL = "https://api.postalpincode.in/pincode/";
 
         const fetchData = async () => {
-          const response = await axios.get(apiURL+pinCode)
+          const response = await axios.get(apiURL + pinCode)
+          console.log({response: response});
           const {
-            Message = '', 
             PostOffice = [],
             Status = ''
           } = response.data[0];
@@ -30,23 +37,30 @@ export const useDonate = () => {
           if(Status == "Success") {
             setState(State);
             setCity(Region);
+            setPostOffice(PostOffice);
           }
         }
         fetchData();
     }
   }, [pinCode]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (reqType) => {
     try {
       const reqObject = {
         donateType: donateType,
-        state: state,
-        city: city,
         donarName: donarName,
         mobileNumber: mobileNumber,
-        noOfCylinder: noOfCylinder,
+        age: age,
+        pinCode: pinCode,
+        state: state,
+        city: city,
+        block: block,
+        noOfCylinder: noOfCylinder || '',
+        bloodGroup: bloodGroup || '',
+        medicineName: medicineName || '',
+        noOfBed: noOfBed || ''
       };
-      const donerlistRef = firebase.database().ref("donarsList");
+      const donerlistRef = firebase.database().ref(reqType);
       donerlistRef.push().set(reqObject);
     } catch (err) {
       console.log("error::", err);
@@ -56,11 +70,18 @@ export const useDonate = () => {
   return {
     handleSubmit,
     setDonateType,
+    donateType,
     state,
     city,
     setPincode,
     setName,
     setMobileNumber,
     setNoOfCylinder,
+    setBloogGroup,
+    setMedicineName,
+    setNoOfbed,
+    setAge,
+    setBlock,
+    postOffice
   };
 };
