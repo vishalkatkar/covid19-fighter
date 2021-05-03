@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import firebase from "../../firebase";
-import axios from 'axios';
+import axios from "axios";
 
 export const useDonate = () => {
   const [donateType, setDonateType] = useState(null);
@@ -19,41 +19,34 @@ export const useDonate = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if(pinCode && pinCode.length === 6) {
+    if (pinCode && pinCode.length === 6) {
       const apiURL = "https://api.postalpincode.in/pincode/";
 
-        const fetchData = async () => {
-          const response = await axios.get(apiURL + pinCode)
-          console.log({response: response});
-          const {
-            PostOffice = [],
-            Status = ''
-          } = response.data[0];
+      const fetchData = async () => {
+        const response = await axios.get(apiURL + pinCode);
+        console.log({ response: response });
+        const { PostOffice = [], Status = "" } = response.data[0];
 
-          const {
-            Region = '',
-            State = ''
-          } = PostOffice[0];
+        const { Region = "", State = "" } = PostOffice[0];
 
-          if(Status == "Success") {
-            setState(State);
-            setCity(Region);
-            setPostOffice(PostOffice);
-          }
+        if (Status == "Success") {
+          setState(State);
+          setCity(Region);
+          setPostOffice(PostOffice);
         }
-        fetchData();
+      };
+      fetchData();
     }
   }, [pinCode]);
 
   const handleSubmit = (reqType) => {
-    (
-      donateType && 
-      donarName && 
+    donateType &&
+      donarName &&
       mobileNumber &&
       age &&
       block &&
-      (noOfCylinder || bloodGroup || medicineName || noOfBed)
-    ) && setIsError(true);
+      (noOfCylinder || bloodGroup || medicineName || noOfBed) &&
+      setIsError(true);
     const date = new Date().getDate();
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
@@ -67,15 +60,15 @@ export const useDonate = () => {
         state: state,
         city: city,
         block: block,
-        noOfCylinder: noOfCylinder || '',
-        bloodGroup: bloodGroup || '',
-        medicineName: medicineName || '',
-        noOfBed: noOfBed || '',
-        postedDate: `${date}/${month}/${year}`
+        noOfCylinder: noOfCylinder || "",
+        bloodGroup: bloodGroup || "",
+        medicineName: medicineName || "",
+        noOfBed: noOfBed || "",
+        postedDate: `${date}/${month}/${year}`,
       };
-      console.log({reqObject:reqObject});
-      // const donerlistRef = firebase.database().ref(reqType);
-      // donerlistRef.push().set(reqObject);
+      console.log({ reqObject: reqObject });
+      const donerlistRef = firebase.database().ref(reqType);
+      donerlistRef.push().set(reqObject);
     } catch (err) {
       console.log("error::", err);
     }
@@ -97,6 +90,6 @@ export const useDonate = () => {
     setAge,
     setBlock,
     postOffice,
-    isError
+    isError,
   };
 };

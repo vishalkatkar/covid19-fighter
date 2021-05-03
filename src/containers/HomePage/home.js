@@ -28,9 +28,11 @@ const Home = () => {
       <Container>
         <section className="m-5">
           <Row className="mb-5">
-            <Col sm="6" style={{ margin: '0 auto' }}>
+            <Col sm="6" style={{ margin: "0 auto" }}>
               <Card body>
-                <CardTitle tag="h4" className="text-center">What are you looking for?</CardTitle>
+                <CardTitle tag="h4" className="text-center">
+                  What are you looking for?
+                </CardTitle>
                 <CardText style={{ height: 100 }}>
                   <List type="unstyled">
                     <ul>
@@ -41,7 +43,9 @@ const Home = () => {
                     </ul>
                   </List>
                 </CardText>
-                <Button color="info" onClick={() => handleClick("dashboard")}>Find</Button>
+                <Button color="info" onClick={() => handleClick("dashboard")}>
+                  Find
+                </Button>
               </Card>
             </Col>
           </Row>
@@ -63,12 +67,12 @@ const Home = () => {
             <Col sm="6">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Patient
+                  Get help
                 </CardTitle>
                 <CardText style={{ height: 100 }}>
                   We will try to help you out in the best way we can.
                 </CardText>
-                <Button color="info" onClick={() => handleClick("patient")}>
+                <Button color="info" onClick={() => handleClick("get-help")}>
                   Get Help
                 </Button>
               </Card>
