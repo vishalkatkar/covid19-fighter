@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAppliedFilters } from "../actions";
+import { setAppliedFilters, setDonarList } from "../actions";
+import firebase from "../../../firebase";
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,20 @@ export const useFilters = () => {
         city: city,
       })
     );
+    firebase
+      .database()
+      .ref("donarsList")
+      .orderByChild("donateType")
+      .equalTo(donateType)
+      .on("child_added", (snapshot) => {
+        const list = snapshot.val();
+        if (list.state === state && list.city === city) {
+          console.log("filter_list::", [list]);
+          dispatch(setDonarList([list]));
+        } else {
+          dispatch(setDonarList([]));
+        }
+      });
   };
 
   return {

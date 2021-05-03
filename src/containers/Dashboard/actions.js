@@ -1,10 +1,16 @@
 const namespace = "containers/dashbaord";
 
 export const SET_DONAR_LIST = `${namespace}/SET_DONAR_LIST`;
+export const SET_FILTER_DONAR_LIST = `${namespace}/SET_FILTER_DONAR_LIST`;
 export const SET_APPLIED_FILTERS = `${namespace}/SET_APPLIED_FILTERS`;
 
 export const setDonarList = (payload) => ({
   type: SET_DONAR_LIST,
+  payload,
+});
+
+export const setFilterDonarList = (payload) => ({
+  type: SET_FILTER_DONAR_LIST,
   payload,
 });
 

@@ -1,17 +1,29 @@
 import React from "react";
 import { useHome } from "./hooks";
 import Header from "../Header";
-import { Container, Button, Card, Row, Col, CardImg, CardBody, CardTitle, List, CardText } from "reactstrap";
+import { Link } from "react-router-dom";
+import {
+  Container,
+  Button,
+  Card,
+  Row,
+  Col,
+  CardTitle,
+  List,
+  CardText,
+} from "reactstrap";
 
 const Home = () => {
   const { handleClick } = useHome();
   return (
-    <div style={{
-      backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      minHeight: window.innerHeight + 'px'
-    }}>
+    <div
+      style={{
+        backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        minHeight: window.innerHeight + "px",
+      }}
+    >
       <Header />
       <Container>
         <section className="m-5">
@@ -36,16 +48,29 @@ const Home = () => {
           <Row>
             <Col sm="6">
               <Card body>
-                <CardTitle tag="h5" className="text-center">Doner</CardTitle>
-                <CardText style={{ height: 100 }}>Help the needy to survive in this pendamic situation of COVID-19.</CardText>
-                <Button color="info" onClick={() => handleClick("donate")}>Donate</Button>
+                <CardTitle tag="h5" className="text-center">
+                  Doner
+                </CardTitle>
+                <CardText style={{ height: 100 }}>
+                  Help the needy to survive in this pendamic situation of
+                  COVID-19.
+                </CardText>
+                <Button color="info" onClick={() => handleClick("donate")}>
+                  Donate
+                </Button>
               </Card>
             </Col>
             <Col sm="6">
               <Card body>
-                <CardTitle tag="h5" className="text-center">Patient</CardTitle>
-                <CardText style={{ height: 100 }}>We will try to help you out in the best way we can.</CardText>
-                <Button color="info" onClick={() => handleClick("patient")}>Get Help</Button>
+                <CardTitle tag="h5" className="text-center">
+                  Patient
+                </CardTitle>
+                <CardText style={{ height: 100 }}>
+                  We will try to help you out in the best way we can.
+                </CardText>
+                <Button color="info" onClick={() => handleClick("patient")}>
+                  Get Help
+                </Button>
               </Card>
             </Col>
           </Row>

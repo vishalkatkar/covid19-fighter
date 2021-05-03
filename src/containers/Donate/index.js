@@ -13,6 +13,7 @@ import {
   UncontrolledAlert,
   ToastBody
 } from "reactstrap";
+import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
 const Donate = (props) => {
   const {

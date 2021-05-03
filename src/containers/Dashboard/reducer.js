@@ -1,7 +1,12 @@
-import { SET_DONAR_LIST, SET_APPLIED_FILTERS } from "./actions";
+import {
+  SET_DONAR_LIST,
+  SET_FILTER_DONAR_LIST,
+  SET_APPLIED_FILTERS,
+} from "./actions";
 
 const initialState = {
   donarList: [],
+  filterDonarList: [],
   appliedFilters: {},
 };
 
@@ -11,6 +16,12 @@ const dashboardReducer = (state = initialState, action) => {
       return {
         ...state,
         donarList: action.payload || [],
+        filterDonarList: action.payload || [],
+      };
+    case SET_FILTER_DONAR_LIST:
+      return {
+        ...state,
+        filterDonarList: action.payload || [],
       };
     case SET_APPLIED_FILTERS:
       return {

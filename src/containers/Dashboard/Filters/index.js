@@ -2,7 +2,7 @@ import React from "react";
 import { useFilters } from "./hooks";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-const Filters = () => {
+const Filters = ({ handleResetFilter }) => {
   const {
     donateType,
     state,
@@ -56,10 +56,17 @@ const Filters = () => {
       </FormGroup>
       <Button
         // disabled={!donateType && !state && !city}
-        variant="primary"
+        variant="success"
         onClick={handleApplyFilters}
       >
         Filter
+      </Button>
+      <Button
+        // disabled={!donateType && !state && !city}
+        variant="primary"
+        onClick={handleResetFilter}
+      >
+        Reset
       </Button>
     </Form>
   );
