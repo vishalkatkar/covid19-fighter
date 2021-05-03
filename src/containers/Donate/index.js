@@ -17,17 +17,24 @@ const Donate = () => {
   const {
     handleSubmit,
     setDonateType,
-    setState,
-    setCity,
+    state,
+    city,
+    setPincode,
     setName,
     setMobileNumber,
     setNoOfCylinder,
   } = useDonate();
+  console.log({ city: city }, { state: state })
   return (
-    <div>
+    <div style={{
+      backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      minHeight: window.innerHeight + 'px'
+    }}>
       <Header />
-      <Container>
-        <Form className="center-block col-md-4">
+      <Container className="p-4">
+        <Form className="col-md-7 bg-light p-4 rounded-sm" style={{ margin: '0 auto' }}>
           <FormGroup>
             <Label for="exampleSelect">What you want to donate?</Label>
             <Input
@@ -44,36 +51,7 @@ const Donate = () => {
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label for="exampleSelect">State</Label>
-            <Input
-              type="select"
-              required
-              onChange={(e) => setState(e.target.value)}
-            >
-              <option value="" selected>
-                State
-              </option>
-              <option value="maharashtra">Maharashtra</option>
-              <option value="utterpradesh">Utterpradesh</option>
-              <option value="delhi">Delhi</option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleSelect">City</Label>
-            <Input
-              type="select"
-              required
-              onChange={(e) => setCity(e.target.value)}
-            >
-              <option value="" selected>
-                City
-              </option>
-              <option value="pune">Pune</option>
-              <option value="kanpur">Kanpur</option>
-              <option value="delhi">Delhi</option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
+            <Label for="exampleSelect">Name</Label>
             <Input
               type="text"
               placeholder="name"
@@ -82,6 +60,7 @@ const Donate = () => {
             />
           </FormGroup>
           <FormGroup>
+            <Label for="exampleSelect">Mobile Number</Label>
             <Input
               type="number"
               placeholder="mobile number"
@@ -90,6 +69,30 @@ const Donate = () => {
             />
           </FormGroup>
           <FormGroup>
+            <Label for="exampleSelect">Pincode</Label>
+            <Input
+              type="number"
+              placeholder="PinCode"
+              required
+              onChange={(e) => setPincode(e.target.value)}
+            />
+          </FormGroup>
+          {state && state !== '' && <FormGroup>
+            <Label for="exampleSelect">State</Label>
+            <Input
+              type="text"
+              value={state}
+            />
+          </FormGroup>}
+          {city && city !== '' && <FormGroup>
+            <Label for="exampleSelect">City</Label>
+            <Input
+              type="text"
+              value={city}
+            />
+          </FormGroup>}
+          <FormGroup>
+            <Label for="exampleSelect">Number of cylinder available</Label>
             <Input
               type="number"
               placeholder="No of cylinder want to donate"
@@ -104,7 +107,7 @@ const Donate = () => {
             </FormFeedback>
             <FormText>Example help text that remains unchanged.</FormText>
           </FormGroup>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button color="primary" onClick={handleSubmit} size="lg" block>
             Submit
           </Button>
         </Form>

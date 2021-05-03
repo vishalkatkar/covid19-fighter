@@ -20,32 +20,26 @@ const Header = () => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <Container>
-            <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <div>
+            <Navbar color="light" light expand="md" className="pl-5 pr-5">
+                <NavbarBrand href="/">Home</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                            <NavLink href="/donate/">Donate</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                Options
+                                Help
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    Option 1
-                                </DropdownItem>
-                                <DropdownItem>
-                                    Option 2
+                                    Contact: 1234567890
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    Reset
+                                    Help
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
@@ -53,7 +47,7 @@ const Header = () => {
                     <NavbarText>Simple Text</NavbarText>
                 </Collapse>
             </Navbar>
-        </Container>
+        </div>
     )
 }
 

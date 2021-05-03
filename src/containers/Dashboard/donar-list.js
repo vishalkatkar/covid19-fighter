@@ -7,8 +7,9 @@ const DonarList = () => {
   const { donarList, handleResetFilter } = useDonerList();
   //   if (!donarList.length) return null;
   console.log("donerList::", donarList);
+  if (!donarList.length) return null;
   return (
-    <Container>
+    <Container className="bg-light mt-5 p-5">
       <h2>Donar List:</h2>
       <Filters handleResetFilter={handleResetFilter} />
       <Table striped bordered>

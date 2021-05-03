@@ -1,17 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import firebase from "../../firebase";
+import axios from 'axios';
 
 export const useDonate = () => {
   const [donateType, setDonateType] = useState(null);
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
+  const [pinCode, setPincode] = useState(null);
   const [donarName, setName] = useState(null);
   const [mobileNumber, setMobileNumber] = useState(null);
   const [noOfCylinder, setNoOfCylinder] = useState(null);
+  useEffect(() => {
+    if(pinCode && pinCode.length === 6) {
+      const apiURL = "https://api.postalpincode.in/pincode/";
+
+        const fetchData = async () => {
+          const response = await axios.get(apiURL+pinCode)
+          const {
+            Message = '', 
+            PostOffice = [],
+            Status = ''
+          } = response.data[0];
+
+          const {
+            Region = '',
+            State = ''
+          } = PostOffice[0];
+
+          if(Status == "Success") {
+            setState(State);
+            setCity(Region);
+          }
+        }
+        fetchData();
+    }
+  }, [pinCode]);
+
   const handleSubmit = () => {
-    debugger;
     try {
-      console.log("test");
       const reqObject = {
         donateType: donateType,
         state: state,
@@ -30,8 +56,9 @@ export const useDonate = () => {
   return {
     handleSubmit,
     setDonateType,
-    setState,
-    setCity,
+    state,
+    city,
+    setPincode,
     setName,
     setMobileNumber,
     setNoOfCylinder,
