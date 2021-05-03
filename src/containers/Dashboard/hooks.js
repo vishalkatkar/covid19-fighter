@@ -5,18 +5,17 @@ import firebase from "../../firebase";
 
 export const useDonerList = () => {
   const dispatch = useDispatch();
-  const donarList_ = useSelector(
+  const donarList = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
   );
-  const filterDonarList = useSelector(
-    ({ dashboardReducer }) => dashboardReducer.filterDonarList
-  );
-  const appliedFilters = useSelector(
-    ({ dashboardReducer }) => dashboardReducer.appliedFilters
-  );
-  const [donarList, setDonarList_] = useState(filterDonarList);
+
+  const [isResetFilter, setIsResetFilter] = useState(false);
 
   useEffect(() => {
+    getDonarList();
+  }, [isResetFilter]);
+
+  const getDonarList = () => {
     const donerData = firebase.database().ref();
     donerData
       .child("donarsList")
@@ -32,15 +31,11 @@ export const useDonerList = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
-
-  useEffect(() => {
-    setDonarList(filterDonarList);
-  }, [appliedFilters]);
-
-  const handleClearFilter = () => {
-    setDonarList_(donarList_);
   };
 
-  return { donarList, handleClearFilter };
+  const handleResetFilter = () => {
+    setIsResetFilter(!isResetFilter);
+  };
+
+  return { donarList, getDonarList, handleResetFilter };
 };

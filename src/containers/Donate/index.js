@@ -9,8 +9,9 @@ import {
   Label,
   Input,
   FormText,
-  FormFeedback
+  FormFeedback,
 } from "reactstrap";
+import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
 const Donate = () => {
   const {
@@ -29,11 +30,17 @@ const Donate = () => {
         <Form className="center-block col-md-4">
           <FormGroup>
             <Label for="exampleSelect">What you want to donate?</Label>
-            <Input type="select" name="select" id="exampleSelect" required onChange={(e) => setDonateType(e.target.value)}>
+            <Input
+              type="select"
+              name="select"
+              id="exampleSelect"
+              required
+              onChange={(e) => setDonateType(e.target.value)}
+            >
               <option value="">----Select-----</option>
-              <option value="oxygen">oxygen</option>
-              <option value="plasma">plasma</option>
-              <option value="medicine">medicine</option>
+              {COVID_HELP_MAIN_CATEGORY.map((category) => (
+                <option value={category.value}>{category.title}</option>
+              ))}
             </Input>
           </FormGroup>
           <FormGroup>
@@ -92,7 +99,9 @@ const Donate = () => {
           <FormGroup>
             <Label for="examplePassword">Invalid input</Label>
             <Input valid />
-            <FormFeedback tooltip>Oh noes! that name is already taken</FormFeedback>
+            <FormFeedback tooltip>
+              Oh noes! that name is already taken
+            </FormFeedback>
             <FormText>Example help text that remains unchanged.</FormText>
           </FormGroup>
           <Button variant="primary" onClick={handleSubmit}>
