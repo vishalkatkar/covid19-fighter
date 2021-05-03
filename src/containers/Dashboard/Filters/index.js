@@ -1,6 +1,6 @@
 import React from "react";
 import { useFilters } from "./hooks";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 
 const Filters = ({ handleResetFilter }) => {
   const {
@@ -14,60 +14,68 @@ const Filters = ({ handleResetFilter }) => {
   } = useFilters();
   return (
     <Form>
-      <FormGroup>
-        <Label for="exampleSelect">Donation Type</Label>
-        <Input
-          type="select"
-          name="select"
-          required
-          onChange={(e) => setDonateType(e.target.value)}
-        >
-          <option value="">----Select-----</option>
-          <option value="oxygen">oxygen</option>
-          <option value="plasma">plasma</option>
-          <option value="medicine">medicine</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleSelect">State</Label>
-        <Input
-          type="select"
-          required
-          onChange={(e) => setState(e.target.value)}
-        >
-          <option value="" selected>
-            State
-          </option>
-          <option value="maharashtra">Maharashtra</option>
-          <option value="utterpradesh">Utterpradesh</option>
-          <option value="delhi">Delhi</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleSelect">City</Label>
-        <Input type="select" required onChange={(e) => setCity(e.target.value)}>
-          <option value="" selected>
-            City
-          </option>
-          <option value="pune">Pune</option>
-          <option value="kanpur">Kanpur</option>
-          <option value="delhi">Delhi</option>
-        </Input>
-      </FormGroup>
-      <Button
-        // disabled={!donateType && !state && !city}
-        variant="success"
-        onClick={handleApplyFilters}
-      >
-        Filter
-      </Button>
-      <Button
-        // disabled={!donateType && !state && !city}
-        variant="primary"
-        onClick={handleResetFilter}
-      >
-        Reset
-      </Button>
+      <Row form>
+        <Col md={1}>
+          <h4>Filters: </h4>
+        </Col>
+        <Col md={3}>
+          <FormGroup>
+            <Input
+              type="select"
+              name="select"
+              required
+              onChange={(e) => setDonateType(e.target.value)}
+            >
+              <option value="">Donation Type</option>
+              <option value="oxygen">oxygen</option>
+              <option value="plasma">plasma</option>
+              <option value="medicine">medicine</option>
+            </Input>
+          </FormGroup>
+        </Col>
+        <Col md={3}>
+          <FormGroup>
+            <Input
+              type="select"
+              required
+              onChange={(e) => setState(e.target.value)}
+            >
+              <option value="" selected>State</option>
+              <option value="maharashtra">Maharashtra</option>
+              <option value="utterpradesh">Utterpradesh</option>
+              <option value="delhi">Delhi</option>
+            </Input>
+          </FormGroup>
+        </Col>
+        <Col md={3}>
+          <FormGroup>
+            <Input type="select" required onChange={(e) => setCity(e.target.value)}>
+              <option value="" selected>City</option>
+              <option value="pune">Pune</option>
+              <option value="kanpur">Kanpur</option>
+              <option value="delhi">Delhi</option>
+            </Input>
+          </FormGroup>
+        </Col>
+        <Col md={2}>
+          <div>
+            <Button
+              // disabled={!donateType && !state && !city}
+              color="info"
+              onClick={handleApplyFilters}
+            >
+              Filter
+          </Button>{' '}
+            <Button
+              // disabled={!donateType && !state && !city}
+              color="info"
+              onClick={handleResetFilter}
+            >
+              Reset
+         </Button>
+          </div>
+        </Col>
+      </Row>
     </Form>
   );
 };

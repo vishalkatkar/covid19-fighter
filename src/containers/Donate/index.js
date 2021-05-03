@@ -31,7 +31,8 @@ const Donate = (props) => {
     setMedicineName,
     setNoOfbed,
     setBlock,
-    postOffice
+    postOffice,
+    isError
   } = useDonate();
 console.log({postOffice:postOffice});
   return (
@@ -42,17 +43,17 @@ console.log({postOffice:postOffice});
       minHeight: window.innerHeight + 'px'
     }}>
       <Header />
-      { city &&
+      { isError &&
       <UncontrolledAlert color="danger" className="float-right">
-        I am an alert and I can be dismissed!
+        Please fill all the valid information!
       </UncontrolledAlert>
       }
       <Container className="p-4">
-        <Form className="col-md-7 bg-light p-4 rounded-sm" style={{ margin: '0 auto' }}>
+        <Form className="col-md-7 bg-light p-4 rounded-sm" style={{ margin: '0 auto' }} onSubmit={() => handleSubmit("donarsList")}>
           <h3 className="text-center mb-4">Donar Form</h3>
           <FormGroup tag="fieldset">
             <Label for="donationType">Donation Type</Label>
-            <FormGroup check className="col-12" onChange={(e) => setDonateType(e.target.value)}>
+            <FormGroup check className="col-12" required onChange={(e) => setDonateType(e.target.value)}>
               <Label check className="col-3">
                 <Input type="radio" name="radio1" value="oxygen" />{' '}
                 Oxygen
@@ -190,7 +191,7 @@ console.log({postOffice:postOffice});
             />
           </FormGroup>
           }
-          <Button color="primary" onClick={() => handleSubmit("donerList")} size="lg" block>
+          <Button color="primary" type="submit" size="lg" block>
             Submit
           </Button>
         </Form>

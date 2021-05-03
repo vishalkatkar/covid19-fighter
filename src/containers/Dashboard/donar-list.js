@@ -2,15 +2,16 @@ import React from "react";
 import { Container, Table } from "reactstrap";
 import { useDonerList } from "./hooks";
 import Filters from "./Filters";
+import { DataLoader } from "../../utils/utils";
 
 const DonarList = () => {
   const { donarList, handleResetFilter } = useDonerList();
   //   if (!donarList.length) return null;
   console.log("donerList::", donarList);
-  if (!donarList.length) return null;
+  if (!donarList.length) return <DataLoader />;
   return (
     <Container className="bg-light mt-5 p-5">
-      <h2>Donar List:</h2>
+      <h2 className="text-center pb-5">Donar List</h2>
       <Filters handleResetFilter={handleResetFilter} />
       <Table striped bordered>
         <thead>

@@ -16,6 +16,7 @@ export const useDonate = () => {
   const [noOfBed, setNoOfbed] = useState(null);
   const [block, setBlock] = useState(null);
   const [postOffice, setPostOffice] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if(pinCode && pinCode.length === 6) {
@@ -45,6 +46,17 @@ export const useDonate = () => {
   }, [pinCode]);
 
   const handleSubmit = (reqType) => {
+    (
+      donateType && 
+      donarName && 
+      mobileNumber &&
+      age &&
+      block &&
+      (noOfCylinder || bloodGroup || medicineName || noOfBed)
+    ) && setIsError(true);
+    const date = new Date().getDate();
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
     try {
       const reqObject = {
         donateType: donateType,
@@ -58,10 +70,12 @@ export const useDonate = () => {
         noOfCylinder: noOfCylinder || '',
         bloodGroup: bloodGroup || '',
         medicineName: medicineName || '',
-        noOfBed: noOfBed || ''
+        noOfBed: noOfBed || '',
+        postedDate: `${date}/${month}/${year}`
       };
-      const donerlistRef = firebase.database().ref(reqType);
-      donerlistRef.push().set(reqObject);
+      console.log({reqObject:reqObject});
+      // const donerlistRef = firebase.database().ref(reqType);
+      // donerlistRef.push().set(reqObject);
     } catch (err) {
       console.log("error::", err);
     }
@@ -82,6 +96,7 @@ export const useDonate = () => {
     setNoOfbed,
     setAge,
     setBlock,
-    postOffice
+    postOffice,
+    isError
   };
 };
