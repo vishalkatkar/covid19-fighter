@@ -18,7 +18,7 @@ const Home = () => {
           <Row className="mb-5">
             <Col sm="6" style={{ margin: '0 auto' }}>
               <Card body>
-                <CardTitle tag="h5" className="text-center">Are you looking for?</CardTitle>
+                <CardTitle tag="h4" className="text-center">What are you looking for?</CardTitle>
                 <CardText style={{ height: 100 }}>
                   <List type="unstyled">
                     <ul>
