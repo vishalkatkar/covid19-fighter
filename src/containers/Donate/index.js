@@ -55,7 +55,7 @@ console.log({postOffice:postOffice});
             <Label for="donationType">Donation Type</Label>
             <FormGroup check className="col-12" required onChange={(e) => setDonateType(e.target.value)}>
               <Label check className="col-3">
-                <Input type="radio" name="radio1" value="oxygen" />{' '}
+                <Input type="radio" checked name="radio1" value="oxygen" />{' '}
                 Oxygen
               </Label>
               <Label check className="col-3">
@@ -140,7 +140,7 @@ console.log({postOffice:postOffice});
             <option value="">----Select-----</option>
             {
               postOffice.map((item) =>
-              <option value={item.Block}>{item.Block}</option>
+              <option value={item.Name + ' ' + item.Block}>{item.Name + ' ' + item.Block}</option>
               )
             }
             </Input>

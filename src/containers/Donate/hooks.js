@@ -3,7 +3,7 @@ import firebase from "../../firebase";
 import axios from 'axios';
 
 export const useDonate = () => {
-  const [donateType, setDonateType] = useState(null);
+  const [donateType, setDonateType] = useState("oxygen");
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
   const [pinCode, setPincode] = useState(null);
@@ -46,14 +46,6 @@ export const useDonate = () => {
   }, [pinCode]);
 
   const handleSubmit = (reqType) => {
-    (
-      donateType && 
-      donarName && 
-      mobileNumber &&
-      age &&
-      block &&
-      (noOfCylinder || bloodGroup || medicineName || noOfBed)
-    ) && setIsError(true);
     const date = new Date().getDate();
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
@@ -74,8 +66,8 @@ export const useDonate = () => {
         postedDate: `${date}/${month}/${year}`
       };
       console.log({reqObject:reqObject});
-      // const donerlistRef = firebase.database().ref(reqType);
-      // donerlistRef.push().set(reqObject);
+      const donerlistRef = firebase.database().ref(reqType);
+      donerlistRef.push().set(reqObject);
     } catch (err) {
       console.log("error::", err);
     }
