@@ -8,9 +8,12 @@ import {
   FormGroup,
   Label,
   Input,
-  Alert
+  Alert,
+  Modal,
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
-import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
+import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../constants";
 
 const Donate = ({ type }) => {
   const {
@@ -31,7 +34,9 @@ const Donate = ({ type }) => {
     postOffice,
     isError,
     errMessage,
-    setIsError
+    setIsError,
+    gotoHome,
+    modal
   } = useDonate(type);
   console.log({ postOffice: postOffice });
   return (
@@ -161,10 +166,9 @@ const Donate = ({ type }) => {
                 onChange={(e) => setBloogGroup(e.target.value)}
               >
                 <option value="">----Select-----</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
+                {BLOOD_GROUP.map((category) => (
+                  <option value={category.value}>{category.title}</option>
+                ))}
               </Input>
             </FormGroup>
           )}
@@ -192,13 +196,19 @@ const Donate = ({ type }) => {
           )}
           <Button
             onClick={() => handleSubmit()}
-            color="primary"
+            color="info"
             size="lg"
             block
           >
             Submit
           </Button>
         </Form>
+        <Modal isOpen={modal} toggle={gotoHome} style={{top: 200}}>
+          <ModalBody className="text-center">
+            Thank you for sharing your information!
+          </ModalBody>
+          <Button color="info" onClick={gotoHome} className="mb-4 p-1 pl-3 pr-3" style={{justifyContent: 'center', alignSelf: 'center'}}>Close</Button>
+        </Modal>
       </Container>
     </div>
   );

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { validationRegex } from '../../utils/utils';
+import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
 export const useDonate = (type) => {
   const history = useHistory();
@@ -21,6 +22,7 @@ export const useDonate = (type) => {
   const [postOffice, setPostOffice] = useState([]);
   const [isError, setIsError] = useState(false);
   const [errMessage, seterrMessage] = useState('');
+  const [modal, setModal] = useState(false);
   const date = new Date().getDate();
   const month = new Date().getMonth();
   const year = new Date().getFullYear();
@@ -47,6 +49,13 @@ export const useDonate = (type) => {
       fetchData();
     }
   }, [pinCode]);
+
+  const toggle = () =>  setModal(!modal);
+
+  const gotoHome = () => {
+    toggle();
+    history.push("/");
+  }
 
   const handleSubmit = () => {
     let isValid = validation();
@@ -78,7 +87,7 @@ export const useDonate = (type) => {
         setIsError(false);
         const donerlistRef = firebase.database().ref(reqType);
         donerlistRef.push().set(reqObject);
-        history.push(`/dashboard`);
+        toggle();
       }
     } catch (err) {
       setIsError(true);
@@ -88,7 +97,20 @@ export const useDonate = (type) => {
 
   const validation = () => {
     setIsError(true);
-    if (!donateType) {
+
+    if(donateType && donateType == COVID_HELP_MAIN_CATEGORY[0].value && !noOfCylinder) {
+      seterrMessage("Please Add Number of Cylender!")
+      return false;
+    } else if(donateType && donateType == COVID_HELP_MAIN_CATEGORY[1].value && !bloodGroup) {
+      seterrMessage("Please Add Blood Group!")
+      return false;
+    } else if(donateType && donateType == COVID_HELP_MAIN_CATEGORY[2].value && !medicineName) {
+      seterrMessage("Please Add Medicines Name!")
+      return false;
+    } else if(donateType && donateType == COVID_HELP_MAIN_CATEGORY[3].value && !noOfBed) {
+      seterrMessage("Please Add Number of Beds!")
+      return false;
+    } else if (!donateType) {
       seterrMessage("Please Select Type!")
       return false;
     } else if(!donarName || !(validationRegex.nameRegex.test(donarName))) {
@@ -127,6 +149,8 @@ export const useDonate = (type) => {
     postOffice,
     isError,
     errMessage,
-    setIsError
+    setIsError,
+    modal,
+    gotoHome
   };
 };
