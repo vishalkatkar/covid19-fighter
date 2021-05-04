@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import firebase from "../../firebase";
-import axios from 'axios';
+import axios from "axios";
 
-export const useDonate = () => {
-  const [donateType, setDonateType] = useState("oxygen");
+export const useDonate = (type) => {
+  console.log({ type: type });
+  const [donateType, setDonateType] = useState(null);
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
   const [pinCode, setPincode] = useState(null);
@@ -17,39 +18,41 @@ export const useDonate = () => {
   const [block, setBlock] = useState(null);
   const [postOffice, setPostOffice] = useState([]);
   const [isError, setIsError] = useState(false);
+  const date = new Date().getDate();
+  const month = new Date().getMonth();
+  const year = new Date().getFullYear();
+  const dateVal = `${date}/${month}/${year}`
 
   useEffect(() => {
-    if(pinCode && pinCode.length === 6) {
+    if (pinCode && pinCode.length === 6) {
       const apiURL = "https://api.postalpincode.in/pincode/";
 
-        const fetchData = async () => {
-          const response = await axios.get(apiURL + pinCode)
-          console.log({response: response});
-          const {
-            PostOffice = [],
-            Status = ''
-          } = response.data[0];
+      const fetchData = async () => {
+        const response = await axios.get(apiURL + pinCode);
+        console.log({ response: response });
+        const { PostOffice = [], Status = "" } = response.data[0];
 
-          const {
-            Region = '',
-            State = ''
-          } = PostOffice[0];
+        const { Region = "", State = "" } = PostOffice[0];
 
-          if(Status == "Success") {
-            setState(State);
-            setCity(Region);
-            setPostOffice(PostOffice);
-          }
+        if (Status == "Success") {
+          setState(State);
+          setCity(Region);
+          setPostOffice(PostOffice);
         }
-        fetchData();
+      };
+      fetchData();
     }
   }, [pinCode]);
 
-  const handleSubmit = (reqType) => {
-    const date = new Date().getDate();
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
+  const handleSubmit = () => {
+    let reqType = '';
     try {
+      if (type == "donar") {
+        reqType = "donarsList";
+      } else {
+        reqType = "seekersList";
+      }
+      
       const reqObject = {
         donateType: donateType,
         donarName: donarName,
@@ -59,12 +62,13 @@ export const useDonate = () => {
         state: state,
         city: city,
         block: block,
-        noOfCylinder: noOfCylinder || '',
-        bloodGroup: bloodGroup || '',
-        medicineName: medicineName || '',
-        noOfBed: noOfBed || '',
-        postedDate: `${date}/${month}/${year}`
+        noOfCylinder: noOfCylinder || "",
+        bloodGroup: bloodGroup || "",
+        medicineName: medicineName || "",
+        noOfBed: noOfBed || "",
+        postedDate: dateVal,
       };
+
       console.log({reqObject:reqObject});
       const donerlistRef = firebase.database().ref(reqType);
       donerlistRef.push().set(reqObject);
@@ -89,6 +93,6 @@ export const useDonate = () => {
     setAge,
     setBlock,
     postOffice,
-    isError
+    isError,
   };
 };

@@ -28,9 +28,11 @@ const Home = () => {
       <Container>
         <section className="m-5">
           <Row className="mb-5">
-            <Col sm="6" style={{ margin: '0 auto' }}>
+            <Col sm="6" style={{ margin: "0 auto" }}>
               <Card body>
-                <CardTitle tag="h4" className="text-center">What are you looking for?</CardTitle>
+                <CardTitle tag="h4" className="text-center">
+                  What are you looking for?
+                </CardTitle>
                 <CardText style={{ height: 100 }}>
                   <List type="unstyled">
                     <ul>
@@ -41,15 +43,17 @@ const Home = () => {
                     </ul>
                   </List>
                 </CardText>
-                <Button color="info" onClick={() => handleClick("dashboard")}>Find</Button>
+                <Button color="info" onClick={() => handleClick("dashboard")}>
+                  Find
+                </Button>
               </Card>
             </Col>
           </Row>
           <Row>
-            <Col sm="6">
+            <Col sm="6" className="mt-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Doner
+                  Donar
                 </CardTitle>
                 <CardText style={{ height: 100 }}>
                   Help the needy to survive in this pendamic situation of
@@ -60,15 +64,15 @@ const Home = () => {
                 </Button>
               </Card>
             </Col>
-            <Col sm="6">
+            <Col sm="6" className="mt-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Patient
+                  Seeker
                 </CardTitle>
                 <CardText style={{ height: 100 }}>
                   We will try to help you out in the best way we can.
                 </CardText>
-                <Button color="info" onClick={() => handleClick("patient")}>
+                <Button color="info" onClick={() => handleClick("get-help")}>
                   Get Help
                 </Button>
               </Card>

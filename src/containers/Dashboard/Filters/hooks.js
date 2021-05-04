@@ -9,7 +9,7 @@ export const useFilters = () => {
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
 
-  const handleApplyFilters = () => {
+  const handleApplyFilters = async () => {
     console.log("test::");
     dispatch(
       setAppliedFilters({
@@ -18,20 +18,26 @@ export const useFilters = () => {
         city: city,
       })
     );
-    firebase
+    let filterFilet_ = [];
+    await firebase
       .database()
       .ref("donarsList")
       .orderByChild("donateType")
       .equalTo(donateType)
       .on("child_added", (snapshot) => {
         const list = snapshot.val();
+        console.log("list:", list);
+        console.log("state:", state);
+        console.log("city:", city);
         if (list.state === state && list.city === city) {
-          console.log("filter_list::", [list]);
-          dispatch(setDonarList([list]));
-        } else {
-          dispatch(setDonarList([]));
+          filterFilet_.push(list);
         }
       });
+    if (filterFilet_.length) {
+      dispatch(setDonarList(filterFilet_));
+    } else {
+      dispatch(setDonarList([]));
+    }
   };
 
   return {

@@ -17,10 +17,10 @@ function App() {
             <Dashboard />
           </Route>
           <Route path="/get-help">
-            <GetHelp />
+            <Donate type={"get-help"} />
           </Route>
           <Route path="/donate">
-            <Donate />
+            <Donate type={"donar"} />
           </Route>
           <Route path="/">
             <Home />

@@ -11,11 +11,11 @@ import {
   FormText,
   FormFeedback,
   UncontrolledAlert,
-  ToastBody
+  ToastBody,
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
-const Donate = (props) => {
+const Donate = ({ type }) => {
   const {
     handleSubmit,
     setDonateType,
@@ -32,44 +32,44 @@ const Donate = (props) => {
     setNoOfbed,
     setBlock,
     postOffice,
-    isError
-  } = useDonate();
-console.log({postOffice:postOffice});
+    isError,
+  } = useDonate(type);
+  console.log({ postOffice: postOffice });
   return (
-    <div style={{
-      backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      minHeight: window.innerHeight + 'px'
-    }}>
+    <div
+      style={{
+        backgroundImage: `url(https://picsum.photos/200/300/?blur)`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        minHeight: window.innerHeight + "px",
+      }}
+    >
       <Header />
-      { isError &&
-      <UncontrolledAlert color="danger" className="float-right">
-        Please fill all the valid information!
-      </UncontrolledAlert>
-      }
+      {isError && (
+        <UncontrolledAlert color="danger" className="float-right">
+          Please fill all the valid information!
+        </UncontrolledAlert>
+      )}
       <Container className="p-4">
-        <Form className="col-md-7 bg-light p-4 rounded-sm" style={{ margin: '0 auto' }} onSubmit={() => handleSubmit("donarsList")}>
-          <h3 className="text-center mb-4">Donar Form</h3>
+        <Form
+          className="col-md-7 bg-light p-4 rounded-sm"
+          style={{ margin: "0 auto" }}
+        >
+          <h3 className="text-center mb-4">{type == "donar" ? "Donar " : "Seeker "} Form</h3>
           <FormGroup tag="fieldset">
-            <Label for="donationType">Donation Type</Label>
-            <FormGroup check className="col-12" required onChange={(e) => setDonateType(e.target.value)}>
-              <Label check className="col-3">
-                <Input type="radio" checked name="radio1" value="oxygen" />{' '}
-                Oxygen
-              </Label>
-              <Label check className="col-3">
-                <Input type="radio" name="radio1" value="plasma" />{' '}
-                  Plasma
+            <Label for="donationType">{type == "donar" ? "Donation Type" : "Need Type"}</Label>
+            <FormGroup
+              check
+              className="col-12"
+              required
+              onChange={(e) => setDonateType(e.target.value)}
+            >
+              {COVID_HELP_MAIN_CATEGORY.map((category) => (
+                <Label check className="col-3">
+                  <Input type="radio" name="radio1" value={category.value} />
+                  {category.title}
                 </Label>
-              <Label check className="col-3">
-                <Input type="radio" name="radio1" value="medicine" />{' '}
-                  Medicine
-                </Label>
-              <Label check className="col-3">
-                <Input type="radio" name="radio1" value="bed" />{' '}
-                  Bed
-                </Label>
+              ))}
             </FormGroup>
           </FormGroup>
           <FormGroup>
@@ -123,75 +123,82 @@ console.log({postOffice:postOffice});
               value={state}
             />
           </FormGroup>}
-          {city && city !== '' && <FormGroup>
-            <Label for="citySelect">City</Label>
-            <Input
-              type="text"
-              id="citySelect"
-              disabled
-              value={city}
-            />
-          </FormGroup>}
-          {
-            postOffice.length !== 0 &&
+          {city && city !== "" && (
             <FormGroup>
-            <Label for="blockSelect">Select block</Label>
-            <Input type="select" name="select" id="blockSelect" required onChange={(e) => setBlock(e.target.value)}>
-            <option value="">----Select-----</option>
-            {
-              postOffice.map((item) =>
-              <option value={item.Name + ' ' + item.Block}>{item.Name + ' ' + item.Block}</option>
-              )
-            }
-            </Input>
+              <Label for="citySelect">City</Label>
+              <Input type="text" id="citySelect" disabled value={city} />
             </FormGroup>
-          }
-          { donateType && donateType === "oxygen" &&
-          <FormGroup>
-            <Label for="oxygenAvailable">Number of cylinders available</Label>
-            <Input
-              type="number"
-              placeholder="Number of cylinders available"
-              id="oxygenAvailable"
-              onChange={(e) => setNoOfCylinder(e.target.value)}
-            />
-          </FormGroup>
-          }
-          { donateType && donateType === "plasma" &&
-          <FormGroup>
-            <Label for="bloogGroupSelect">Select blood group</Label>
-            <Input type="select" name="select" id="bloogGroupSelect" required onChange={(e) => setBloogGroup(e.target.value)}>
-              <option value="">----Select-----</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="AB">AB</option>
-              <option value="O">O</option>
-            </Input>
-          </FormGroup>
-          }
-          { donateType && donateType === "medicine" &&
-          <FormGroup>
-            <Label for="medicineName">Name of medicine</Label>
-            <Input
-              type="text"
-              placeholder="Name of medicine"
-              id="medicineName"
-              onChange={(e) => setMedicineName(e.target.value)}
-            />
-          </FormGroup>
-          }
-          { donateType && donateType === "bed" &&
-          <FormGroup>
-            <Label for="bedAvailable">Number of beds available</Label>
-            <Input
-              type="number"
-              placeholder="Number of beds available"
-              id="bedAvailable"
-              onChange={(e) => setNoOfbed(e.target.value)}
-            />
-          </FormGroup>
-          }
-          <Button color="primary" type="submit" size="lg" block>
+          )}
+          {postOffice.length !== 0 && (
+            <FormGroup>
+              <Label for="blockSelect">Select block</Label>
+              <Input type="select" name="select" id="blockSelect" required onChange={(e) => setBlock(e.target.value)}>
+                <option value="">----Select-----</option>
+                {
+                  postOffice.map((item) =>
+                    <option value={item.Name + ' ' + item.Block}>{item.Name + ' ' + item.Block}</option>
+                  )
+                }
+              </Input>
+            </FormGroup>
+          )}
+          {donateType && donateType === "oxygen" && (
+            <FormGroup>
+              <Label for="oxygenAvailable">Number of cylinders {type == "donar" ? "available" : "needed" }</Label>
+              <Input
+                type="number"
+                placeholder="Number of cylinders"
+                id="oxygenAvailable"
+                onChange={(e) => setNoOfCylinder(e.target.value)}
+              />
+            </FormGroup>
+          )}
+          {donateType && donateType === "plasma" && (
+            <FormGroup>
+              <Label for="bloogGroupSelect">Select blood group</Label>
+              <Input
+                type="select"
+                name="select"
+                id="bloogGroupSelect"
+                required
+                onChange={(e) => setBloogGroup(e.target.value)}
+              >
+                <option value="">----Select-----</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+              </Input>
+            </FormGroup>
+          )}
+          {donateType && donateType === "medicines" && (
+            <FormGroup>
+              <Label for="medicineName">Name of medicine</Label>
+              <Input
+                type="text"
+                placeholder="Name of medicine"
+                id="medicineName"
+                onChange={(e) => setMedicineName(e.target.value)}
+              />
+            </FormGroup>
+          )}
+          {donateType && donateType === "beds" && (
+            <FormGroup>
+              <Label for="bedAvailable">Number of beds {type == "donar" ? "available" : "needed" }</Label>
+              <Input
+                type="number"
+                placeholder="Number of beds"
+                id="bedAvailable"
+                onChange={(e) => setNoOfbed(e.target.value)}
+              />
+            </FormGroup>
+          )}
+          <Button
+            onClick={() => handleSubmit()}
+            color="primary"
+            size="lg"
+            block
+          >
             Submit
           </Button>
         </Form>

@@ -40,20 +40,28 @@ const Filters = ({ handleResetFilter }) => {
               required
               onChange={(e) => setState(e.target.value)}
             >
-              <option value="" selected>State</option>
-              <option value="maharashtra">Maharashtra</option>
-              <option value="utterpradesh">Utterpradesh</option>
-              <option value="delhi">Delhi</option>
+              <option value="" selected>
+                State
+              </option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Uttarpradesh">Utterpradesh</option>
+              <option value="Delhi">Delhi</option>
             </Input>
           </FormGroup>
         </Col>
         <Col md={3}>
           <FormGroup>
-            <Input type="select" required onChange={(e) => setCity(e.target.value)}>
-              <option value="" selected>City</option>
-              <option value="pune">Pune</option>
-              <option value="kanpur">Kanpur</option>
-              <option value="delhi">Delhi</option>
+            <Input
+              type="select"
+              required
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <option value="" selected>
+                City
+              </option>
+              <option value="Pune">Pune</option>
+              <option value="Kanpur">Kanpur</option>
+              <option value="Delhi">Delhi</option>
             </Input>
           </FormGroup>
         </Col>
@@ -65,14 +73,14 @@ const Filters = ({ handleResetFilter }) => {
               onClick={handleApplyFilters}
             >
               Filter
-          </Button>{' '}
+            </Button>{" "}
             <Button
               // disabled={!donateType && !state && !city}
               color="info"
               onClick={handleResetFilter}
             >
               Reset
-         </Button>
+            </Button>
           </div>
         </Col>
       </Row>
