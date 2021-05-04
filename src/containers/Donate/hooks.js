@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import firebase from "../../firebase";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import firebase from "../../firebase";
+import { validationRegex } from '../../utils/utils';
 
 export const useDonate = (type) => {
-  console.log({ type: type });
+  const history = useHistory();
   const [donateType, setDonateType] = useState(null);
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
@@ -18,6 +20,7 @@ export const useDonate = (type) => {
   const [block, setBlock] = useState(null);
   const [postOffice, setPostOffice] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [errMessage, seterrMessage] = useState('');
   const date = new Date().getDate();
   const month = new Date().getMonth();
   const year = new Date().getFullYear();
@@ -26,18 +29,19 @@ export const useDonate = (type) => {
   useEffect(() => {
     if (pinCode && pinCode.length === 6) {
       const apiURL = "https://api.postalpincode.in/pincode/";
-
       const fetchData = async () => {
-        const response = await axios.get(apiURL + pinCode);
-        console.log({ response: response });
-        const { PostOffice = [], Status = "" } = response.data[0];
-
-        const { Region = "", State = "" } = PostOffice[0];
+      const response = await axios.get(apiURL + pinCode);
+      const { PostOffice = [], Status = "" } = response.data[0];
 
         if (Status == "Success") {
+          const { Region = "", State = "" } = PostOffice[0];
           setState(State);
           setCity(Region);
           setPostOffice(PostOffice);
+          setIsError(false);
+        } else {
+          setIsError(true);
+          seterrMessage("Please Enter Valid Pincode!");
         }
       };
       fetchData();
@@ -45,6 +49,7 @@ export const useDonate = (type) => {
   }, [pinCode]);
 
   const handleSubmit = () => {
+    let isValid = validation();
     let reqType = '';
     try {
       if (type == "donar") {
@@ -68,14 +73,41 @@ export const useDonate = (type) => {
         noOfBed: noOfBed || "",
         postedDate: dateVal,
       };
-
-      console.log({reqObject:reqObject});
-      const donerlistRef = firebase.database().ref(reqType);
-      donerlistRef.push().set(reqObject);
+      
+      if(isValid) {
+        setIsError(false);
+        const donerlistRef = firebase.database().ref(reqType);
+        donerlistRef.push().set(reqObject);
+        history.push(`/dashboard`);
+      }
     } catch (err) {
-      console.log("error::", err);
+      setIsError(true);
+      seterrMessage(err);
     }
   };
+
+  const validation = () => {
+    setIsError(true);
+    if (!donateType) {
+      seterrMessage("Please Select Type!")
+      return false;
+    } else if(!donarName || !(validationRegex.nameRegex.test(donarName))) {
+      seterrMessage("Please Enter Valid Name!")
+      return false;
+    } else if(!mobileNumber || !(validationRegex.mobile.test(mobileNumber))) {
+      seterrMessage("Please Enter Valid Mobile Number!")
+      return false;
+    } else if (!age) {
+      seterrMessage("Please Select Age!")
+      return false;
+    } else if (!pinCode || !(validationRegex.pincode.test(pinCode))) {
+      seterrMessage("Please Enter Valid Pincode!")
+      return false;
+    } else {
+      setIsError(false);
+      return true
+    }
+  }
 
   return {
     handleSubmit,
@@ -94,5 +126,7 @@ export const useDonate = (type) => {
     setBlock,
     postOffice,
     isError,
+    errMessage,
+    setIsError
   };
 };

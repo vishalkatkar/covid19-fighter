@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../Header";
 import { useDonate } from "./hooks";
 import {
@@ -8,10 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
-  FormFeedback,
-  UncontrolledAlert,
-  ToastBody,
+  Alert
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
 
@@ -33,6 +30,8 @@ const Donate = ({ type }) => {
     setBlock,
     postOffice,
     isError,
+    errMessage,
+    setIsError
   } = useDonate(type);
   console.log({ postOffice: postOffice });
   return (
@@ -45,11 +44,9 @@ const Donate = ({ type }) => {
       }}
     >
       <Header />
-      {isError && (
-        <UncontrolledAlert color="danger" className="float-right">
-          Please fill all the valid information!
-        </UncontrolledAlert>
-      )}
+      <Alert color="danger" className="float-right" isOpen={isError} toggle={() => setIsError(false)} fade={false}>
+        {errMessage ? errMessage : "Please Fill Valid Information!"}
+      </Alert>
       <Container className="p-4">
         <Form
           className="col-md-7 bg-light p-4 rounded-sm"

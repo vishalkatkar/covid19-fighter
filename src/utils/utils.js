@@ -23,3 +23,9 @@ export const DataLoader = () => {
         </div>
     );
 };
+
+export const validationRegex = {
+    mobile: /^[6-9]\d{9}$/,
+    pincode: /^[1-9][0-9]{5}$/,
+    nameRegex: /^[A-Za-z .]{1,128}$/,
+};
