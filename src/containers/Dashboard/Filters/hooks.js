@@ -6,18 +6,21 @@ import firebase from "../../../firebase";
 export const useFilters = () => {
   const dispatch = useDispatch();
   const [donateType, setDonateType] = useState(null);
-  const [state, setState] = useState(null);
-  const [city, setCity] = useState(null);
 
-  const handleApplyFilters = async () => {
-    console.log("test::");
+  const handleApplyFilters = async ({ state = "", city = "", block = "" }) => {
     dispatch(
       setAppliedFilters({
         donateType: donateType,
         state: state,
         city: city,
+        block: block,
       })
     );
+
+    // console.log({ state: state });
+    // console.log({ state: state });
+    // console.log({ city: city });
+    // console.log({ block: block });
     let filterFilet_ = [];
     await firebase
       .database()
@@ -26,14 +29,28 @@ export const useFilters = () => {
       .equalTo(donateType)
       .on("child_added", (snapshot) => {
         const list = snapshot.val();
-        console.log("list:", list);
-        console.log("state:", state);
-        console.log("city:", city);
-        if (list.state === state && list.city === city) {
+        // console.log({ list: list });
+        if (!state && !city) {
           filterFilet_.push(list);
+        } else {
+          if (block) {
+            if (
+              list.state === state &&
+              list.city === city &&
+              list.block === block
+            ) {
+              filterFilet_.push(list);
+            }
+          } else {
+            if (list.state === state && list.city === city) {
+              filterFilet_.push(list);
+            }
+          }
         }
       });
+    console.log({ filterFilet_: filterFilet_ });
     if (filterFilet_.length) {
+      console.log("here");
       dispatch(setDonarList(filterFilet_));
     } else {
       dispatch(setDonarList([]));
@@ -42,11 +59,7 @@ export const useFilters = () => {
 
   return {
     donateType,
-    state,
-    city,
     setDonateType,
-    setState,
-    setCity,
     handleApplyFilters,
   };
 };

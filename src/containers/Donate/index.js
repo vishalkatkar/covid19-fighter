@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header";
-import { useDonate } from "./hooks";
+import { useDonate, usePinCode } from "./hooks";
 import {
   Container,
   Button,
@@ -11,7 +11,7 @@ import {
   Alert,
   Modal,
   ModalBody,
-  ModalFooter
+  ModalFooter,
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../constants";
 
@@ -20,9 +20,6 @@ const Donate = ({ type }) => {
     handleSubmit,
     setDonateType,
     donateType,
-    state,
-    city,
-    setPincode,
     setName,
     setMobileNumber,
     setAge,
@@ -30,14 +27,26 @@ const Donate = ({ type }) => {
     setBloogGroup,
     setMedicineName,
     setNoOfbed,
-    setBlock,
-    postOffice,
     isError,
     errMessage,
     setIsError,
     gotoHome,
-    modal
+    modal,
   } = useDonate(type);
+
+  const {
+    pinCode,
+    state,
+    city,
+    block,
+    postOffice,
+    isLocationError,
+    setPincode,
+    setBlock,
+    setIsLocationError,
+    locationErrMsg,
+  } = usePinCode();
+
   console.log({ postOffice: postOffice });
   return (
     <div
@@ -49,17 +58,32 @@ const Donate = ({ type }) => {
       }}
     >
       <Header />
-      <Alert color="danger" className="float-right" isOpen={isError} toggle={() => setIsError(false)} fade={false}>
-        {errMessage ? errMessage : "Please Fill Valid Information!"}
+      <Alert
+        color="danger"
+        className="float-right"
+        isOpen={isError || isLocationError}
+        toggle={() => {
+          setIsError(false);
+          setIsLocationError(false);
+        }}
+        fade={false}
+      >
+        {errMessage || locationErrMsg
+          ? errMessage || locationErrMsg
+          : "Please Fill Valid Information!"}
       </Alert>
       <Container className="p-4">
         <Form
           className="col-md-7 bg-light p-4 rounded-sm"
           style={{ margin: "0 auto" }}
         >
-          <h3 className="text-center mb-4">{type == "donar" ? "Donor " : "Seeker "} Form</h3>
+          <h3 className="text-center mb-4">
+            {type == "donar" ? "Donar " : "Seeker "} Form
+          </h3>
           <FormGroup tag="fieldset">
-            <Label for="donationType">{type == "donar" ? "Donation Type" : "Need Type"}</Label>
+            <Label for="donationType">
+              {type == "donar" ? "Donation Type" : "Need Type"}
+            </Label>
             <FormGroup
               check
               className="col-12"
@@ -116,37 +140,42 @@ const Donate = ({ type }) => {
               onChange={(e) => setPincode(e.target.value)}
             />
           </FormGroup>
-          {state && state !== '' && <FormGroup>
-            <Label for="stateSelect">State</Label>
-            <Input
-              type="text"
-              id="stateSelect"
-              disabled
-              value={state}
-            />
-          </FormGroup>}
+          {state && state !== "" && (
+            <FormGroup>
+              <Label for="stateSelect">State</Label>
+              <Input type="text" id="stateSelect" disabled value={state} />
+            </FormGroup>
+          )}
           {city && city !== "" && (
             <FormGroup>
               <Label for="citySelect">City</Label>
               <Input type="text" id="citySelect" disabled value={city} />
             </FormGroup>
           )}
-          {postOffice.length !== 0 && (
+          {postOffice && postOffice.length !== 0 && (
             <FormGroup>
               <Label for="blockSelect">Select block</Label>
-              <Input type="select" name="select" id="blockSelect" required onChange={(e) => setBlock(e.target.value)}>
+              <Input
+                type="select"
+                name="select"
+                id="blockSelect"
+                required
+                onChange={(e) => setBlock(e.target.value)}
+              >
                 <option value="">----Select-----</option>
-                {
-                  postOffice.map((item) =>
-                    <option value={item.Name + ' ' + item.Block}>{item.Name + ' ' + item.Block}</option>
-                  )
-                }
+                {postOffice.map((item) => (
+                  <option value={item.Name + " " + item.Block}>
+                    {item.Name + " " + item.Block}
+                  </option>
+                ))}
               </Input>
             </FormGroup>
           )}
           {donateType && donateType === "oxygen" && (
             <FormGroup>
-              <Label for="oxygenAvailable">Number of cylinders {type == "donar" ? "available" : "needed" }</Label>
+              <Label for="oxygenAvailable">
+                Number of cylinders {type == "donar" ? "available" : "needed"}
+              </Label>
               <Input
                 type="number"
                 placeholder="Number of cylinders"
@@ -185,7 +214,9 @@ const Donate = ({ type }) => {
           )}
           {donateType && donateType === "beds" && (
             <FormGroup>
-              <Label for="bedAvailable">Number of beds {type == "donar" ? "available" : "needed" }</Label>
+              <Label for="bedAvailable">
+                Number of beds {type == "donar" ? "available" : "needed"}
+              </Label>
               <Input
                 type="number"
                 placeholder="Number of beds"
@@ -195,7 +226,14 @@ const Donate = ({ type }) => {
             </FormGroup>
           )}
           <Button
-            onClick={() => handleSubmit()}
+            onClick={() =>
+              handleSubmit({
+                pinCode,
+                state,
+                city,
+                block,
+              })
+            }
             color="info"
             size="lg"
             block
@@ -203,11 +241,18 @@ const Donate = ({ type }) => {
             Submit
           </Button>
         </Form>
-        <Modal isOpen={modal} toggle={gotoHome} style={{top: 200}}>
+        <Modal isOpen={modal} toggle={gotoHome} style={{ top: 200 }}>
           <ModalBody className="text-center">
             Thank you for sharing your information!
           </ModalBody>
-          <Button color="info" onClick={gotoHome} className="mb-4 p-1 pl-3 pr-3" style={{justifyContent: 'center', alignSelf: 'center'}}>Close</Button>
+          <Button
+            color="info"
+            onClick={gotoHome}
+            className="mb-4 p-1 pl-3 pr-3"
+            style={{ justifyContent: "center", alignSelf: "center" }}
+          >
+            Close
+          </Button>
         </Modal>
       </Container>
     </div>

@@ -1,83 +1,106 @@
 import React from "react";
 import { useFilters } from "./hooks";
 import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import { usePinCode } from "../../Donate/hooks";
+import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../../constants";
 
 const Filters = ({ handleResetFilter }) => {
+  const { donateType, setDonateType, handleApplyFilters } = useFilters();
+
   const {
-    donateType,
+    pinCode,
     state,
     city,
-    setCity,
-    setState,
-    setDonateType,
-    handleApplyFilters,
-  } = useFilters();
+    block,
+    postOffice,
+    isLocationError,
+    setPincode,
+    setBlock,
+    setIsLocationError,
+    locationErrMsg,
+  } = usePinCode();
+  console.log({ donateType: donateType });
+  console.log({ pinCode: pinCode });
   return (
     <Form>
       <Row form>
         <Col md={1}>
           <h4>Filters: </h4>
         </Col>
-        <Col md={3}>
+        <FormGroup tag="fieldset">
+          <Input
+            type="select"
+            className="col-12"
+            required
+            value={donateType}
+            onChange={(e) => setDonateType(e.target.value)}
+          >
+            <option value="">----Select-----</option>
+            {COVID_HELP_MAIN_CATEGORY.map((item) => (
+              <option value={item.value}>{item.title}</option>
+            ))}
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="pincodeSelect">Pincode</Label>
+          <Input
+            type="number"
+            placeholder="PinCode"
+            required
+            id="pincodeSelect"
+            value={pinCode}
+            onChange={(e) => setPincode(e.target.value)}
+          />
+        </FormGroup>
+        {state && state !== "" && (
           <FormGroup>
+            <Label for="stateSelect">State</Label>
+            <Input type="text" id="stateSelect" disabled value={state} />
+          </FormGroup>
+        )}
+        {city && city !== "" && (
+          <FormGroup>
+            <Label for="citySelect">City</Label>
+            <Input type="text" id="citySelect" disabled value={city} />
+          </FormGroup>
+        )}
+        {postOffice && postOffice.length !== 0 && (
+          <FormGroup>
+            <Label for="blockSelect">Select block</Label>
             <Input
               type="select"
               name="select"
+              id="blockSelect"
               required
-              onChange={(e) => setDonateType(e.target.value)}
+              onChange={(e) => setBlock(e.target.value)}
             >
-              <option value="">Type</option>
-              <option value="oxygen">oxygen</option>
-              <option value="plasma">plasma</option>
-              <option value="medicine">medicine</option>
+              <option value="">----Select-----</option>
+              {postOffice.map((item) => (
+                <option value={item.Name + " " + item.Block}>
+                  {item.Name + " " + item.Block}
+                </option>
+              ))}
             </Input>
           </FormGroup>
-        </Col>
-        <Col md={3}>
-          <FormGroup>
-            <Input
-              type="select"
-              required
-              onChange={(e) => setState(e.target.value)}
-            >
-              <option value="" selected>
-                State
-              </option>
-              <option value="Maharashtra">Maharashtra</option>
-              <option value="Uttarpradesh">Utterpradesh</option>
-              <option value="Delhi">Delhi</option>
-            </Input>
-          </FormGroup>
-        </Col>
-        <Col md={3}>
-          <FormGroup>
-            <Input
-              type="select"
-              required
-              onChange={(e) => setCity(e.target.value)}
-            >
-              <option value="" selected>
-                City
-              </option>
-              <option value="Pune">Pune</option>
-              <option value="Kanpur">Kanpur</option>
-              <option value="Delhi">Delhi</option>
-            </Input>
-          </FormGroup>
-        </Col>
+        )}
         <Col md={2}>
           <div>
             <Button
               // disabled={!donateType && !state && !city}
               color="info"
-              onClick={handleApplyFilters}
+              onClick={() => handleApplyFilters({ state, city, block })}
             >
               Filter
             </Button>{" "}
             <Button
               // disabled={!donateType && !state && !city}
               color="info"
-              onClick={handleResetFilter}
+              onClick={() => {
+                handleResetFilter();
+                setDonateType("");
+                setPincode("");
+                setBlock("");
+              }}
             >
               Reset
             </Button>
