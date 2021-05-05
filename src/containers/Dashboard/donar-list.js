@@ -8,7 +8,7 @@ const DonarList = ({type}) => {
   const { donarList, handleResetFilter } = useDonerList(type);
   return (
     <Container className="bg-light mt-5 p-5">
-      <h2 className="text-center pb-5">{type.substring(0, 1).toUpperCase() + type.substring(1)} List</h2>
+      <h2 className="text-center pb-5">{type == "donar" ? "Donor" : "Seeker"} List</h2>
       <Filters handleResetFilter={handleResetFilter} />
       <Table striped bordered responsive>
         <thead>
@@ -18,9 +18,9 @@ const DonarList = ({type}) => {
             <th>Cylinder {type == "donar" ? "available" : "Needed"}</th>
             <th>Medicine name </th>
             <th>Beds {type == "donar" ? "available" : "Needed"}</th>
-            <th>{type == "donar" ? "Donar" : "Seeker"} Name</th>
-            <th>{type == "donar" ? "Donar" : "Seeker"} Mobile Number</th>
-            <th>{type == "donar" ? "Donar" : "Seeker"} Age</th>
+            <th>{type == "donar" ? "Donor" : "Seeker"} Name</th>
+            <th>{type == "donar" ? "Donor" : "Seeker"} Mobile Number</th>
+            <th>{type == "donar" ? "Donor" : "Seeker"} Age</th>
             <th>Posted Date</th>
             <th>Blood Group</th>
             <th>Pincode</th>

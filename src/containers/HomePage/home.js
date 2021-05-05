@@ -46,7 +46,7 @@ const Home = () => {
                 <Row>
                   <Col sm="6" className="mt-2">
                     <Button color="info" block onClick={() => handleClick("donar")}>
-                      Registered Donar
+                      Registered Donor
                     </Button>
                   </Col>
                   <Col sm="6" className="mt-2">
@@ -62,7 +62,7 @@ const Home = () => {
             <Col sm="6" className="mt-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Donar
+                  Donor
                 </CardTitle>
                 <CardText style={{ height: 100 }}>
                   Help the needy to survive in this pendamic situation of
