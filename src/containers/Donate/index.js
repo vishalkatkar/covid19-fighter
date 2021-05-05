@@ -57,7 +57,7 @@ const Donate = ({ type }) => {
           className="col-md-7 bg-light p-4 rounded-sm"
           style={{ margin: "0 auto" }}
         >
-          <h3 className="text-center mb-4">{type == "donar" ? "Donar " : "Seeker "} Form</h3>
+          <h3 className="text-center mb-4">{type == "donar" ? "Donor " : "Seeker "} Form</h3>
           <FormGroup tag="fieldset">
             <Label for="donationType">{type == "donar" ? "Donation Type" : "Need Type"}</Label>
             <FormGroup
