@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDonarList } from "./actions";
 import firebase from "../../firebase";
 
-export const useDonerList = () => {
+export const useDonerList = (type) => {
   const dispatch = useDispatch();
   const donarList = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
@@ -18,7 +18,7 @@ export const useDonerList = () => {
   const getDonarList = () => {
     const donerData = firebase.database().ref();
     donerData
-      .child("donarsList")
+      .child(type == 'donar' ? "donarsList" : "seekersList")
       .get()
       .then((snapshot) => {
         if (snapshot.exists()) {

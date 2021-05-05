@@ -26,7 +26,7 @@ const Filters = ({ handleResetFilter }) => {
               required
               onChange={(e) => setDonateType(e.target.value)}
             >
-              <option value="">Donation Type</option>
+              <option value="">Type</option>
               <option value="oxygen">oxygen</option>
               <option value="plasma">plasma</option>
               <option value="medicine">medicine</option>

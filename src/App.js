@@ -13,8 +13,11 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
+          <Route path="/donar">
+            <Dashboard type={"donar"} />
+          </Route>
+          <Route path="/seeker">
+            <Dashboard type={"seeker"} />
           </Route>
           <Route path="/get-help">
             <Donate type={"get-help"} />

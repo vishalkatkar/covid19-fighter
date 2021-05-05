@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Header";
 import DonarList from "./donar-list";
 
-const Dashboard = () => {
+const Dashboard = ({ type }) => {
   return (
     <div style={{
       backgroundImage: `url(https://picsum.photos/200/300/?blur)`, 
@@ -11,7 +11,7 @@ const Dashboard = () => {
       minHeight: window.innerHeight + 'px'
     }}>
       <Header />
-      <DonarList />
+      <DonarList type={type} />
     </div>
   );
 };

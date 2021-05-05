@@ -43,9 +43,18 @@ const Home = () => {
                     </ul>
                   </List>
                 </CardText>
-                <Button color="info" onClick={() => handleClick("dashboard")}>
-                  Find
-                </Button>
+                <Row>
+                  <Col sm="6" className="mt-2">
+                    <Button color="info" block onClick={() => handleClick("donar")}>
+                      Registered Donar
+                    </Button>
+                  </Col>
+                  <Col sm="6" className="mt-2">
+                    <Button color="info" block onClick={() => handleClick("seeker")}>
+                      Registered Seeker
+                    </Button>
+                  </Col>
+                </Row>
               </Card>
             </Col>
           </Row>
