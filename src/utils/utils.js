@@ -1,5 +1,12 @@
 import React from "react";
-import logo from '../assets/images/loding.gif'
+import lodar from '../assets/images/loding.gif'
+import logo from '../assets/images/COVID-FIGHTER_final.gif'
+
+export const Logo = () => {
+    return (
+    <img src={logo} alt="loading..." width={80} height={40} />
+    )
+}
 
 export const DataLoader = () => {
     return (
@@ -18,7 +25,7 @@ export const DataLoader = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <img src={logo} alt="loading..." width={40} height={40} />
+                <img src={lodar} alt="loading..." width={40} height={40} />
             </div>
         </div>
     );

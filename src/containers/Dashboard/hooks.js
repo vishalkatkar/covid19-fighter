@@ -5,9 +5,10 @@ import firebase from "../../firebase";
 
 export const useDonerList = (type) => {
   const dispatch = useDispatch();
-  const donarList = useSelector(
+  const unsortedData = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
   );
+  const donarList = unsortedData.sort((a, b) => b.postedDate - a.postedDate)
 
   const [isResetFilter, setIsResetFilter] = useState(false);
 

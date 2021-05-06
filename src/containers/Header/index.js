@@ -14,6 +14,7 @@ import {
     DropdownItem,
     NavbarText
 } from 'reactstrap';
+import { Logo } from "../../utils/utils";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,10 +23,13 @@ const Header = () => {
     return (
         <div>
             <Navbar color="light" light expand="md" className="pl-5 pr-5">
-                <NavbarBrand href="/">Home</NavbarBrand>
+                <NavbarBrand><Logo /></NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/">Home</NavLink>
+                        </NavItem>
                         <NavItem>
                             <NavLink href="/donate/">Donate</NavLink>
                         </NavItem>
@@ -35,16 +39,25 @@ const Header = () => {
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    Contact: 1234567890
+                                    <b>Call us: </b>1234567890
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    Help
+                                    <NavLink href="/donate/">Donate</NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href="/get-help/">Need Help</NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href="/donar/">Donor List</NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href="/seeker/">Seeker List</NavLink>
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
+                    <NavbarText>COVID-19 FIGHTER</NavbarText>
                 </Collapse>
             </Navbar>
         </div>
