@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Table } from "reactstrap";
 import { useDonerList } from "./hooks";
 import Filters from "./Filters";
+import moment from 'moment';
 import { DataLoader } from "../../utils/utils";
 
 const DonarList = ({type}) => {
@@ -13,7 +14,7 @@ const DonarList = ({type}) => {
       <Table striped bordered responsive>
         <thead>
           <tr>
-            <th>#</th>
+            <th>Posted Date</th>
             <th>{type == "donar" ? "Donate" : "Need"} Type</th>
             <th>Cylinder {type == "donar" ? "available" : "Needed"}</th>
             <th>Medicine name </th>
@@ -21,7 +22,6 @@ const DonarList = ({type}) => {
             <th>{type == "donar" ? "Donor" : "Seeker"} Name</th>
             <th>{type == "donar" ? "Donor" : "Seeker"} Mobile Number</th>
             <th>{type == "donar" ? "Donor" : "Seeker"} Age</th>
-            <th>Posted Date</th>
             <th>Blood Group</th>
             <th>Pincode</th>
             <th>State</th>
@@ -50,7 +50,7 @@ const DonarList = ({type}) => {
 
               return (
                 <tr>
-                  <th scope="row">{index + 1}</th>
+                <td>{moment(postedDate).format("DD/MM/YYYY, hh:mm a")}</td>
                   <td>{donateType}</td>
                   <td>{noOfCylinder || "NA"}</td>
                   <td>{medicineName || "NA"}</td>
@@ -58,7 +58,6 @@ const DonarList = ({type}) => {
                   <td>{donarName}</td>
                   <td>{mobileNumber}</td>
                   <td>{age}</td>
-                  <td>{postedDate}</td>
                   <td>{bloodGroup}</td>
                   <td>{pinCode}</td>
                   <td>{state}</td>

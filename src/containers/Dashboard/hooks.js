@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from 'moment';
 import { setDonarList } from "./actions";
 import firebase from "../../firebase";
 
@@ -8,7 +9,9 @@ export const useDonerList = (type) => {
   const unsortedData = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
   );
-  const donarList = unsortedData.sort((a, b) => b.postedDate - a.postedDate)
+  const donarList = unsortedData.sort((a, b) => {
+    return moment(b.postedDate).diff(a.postedDate);
+  });
 
   const [isResetFilter, setIsResetFilter] = useState(false);
 

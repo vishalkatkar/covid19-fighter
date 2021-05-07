@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import moment from 'moment';
 import firebase from "../../firebase";
 import { validationRegex } from "../../utils/utils";
 import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
@@ -18,11 +19,6 @@ export const useDonate = (type) => {
   const [isError, setIsError] = useState(false);
   const [errMessage, seterrMessage] = useState("");
   const [modal, setModal] = useState(false);
-  const date = new Date().getDate();
-  const month = new Date().getMonth();
-  const year = new Date().getFullYear();
-  const dateVal = `${date}/${month}/${year}`;
-
   const toggle = () => setModal(!modal);
 
   const gotoHome = () => {
@@ -58,7 +54,7 @@ export const useDonate = (type) => {
         bloodGroup: bloodGroup || "",
         medicineName: medicineName || "",
         noOfBed: noOfBed || "",
-        postedDate: dateVal,
+        postedDate: moment().format(),
       };
 
       if (isValid) {
