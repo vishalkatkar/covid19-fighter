@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.err {
+  color: red;
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-row {
+  width: 100%;
+}

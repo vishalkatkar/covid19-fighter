@@ -6,8 +6,15 @@ import firebase from "../../../firebase";
 export const useFilters = () => {
   const dispatch = useDispatch();
   const [donateType, setDonateType] = useState(null);
+  const [err, setErr] = useState(null);
 
   const handleApplyFilters = async ({ state = "", city = "", block = "" }) => {
+    if (!donateType && !state && !city && !block) {
+      setErr("Atleast select one filter!");
+    } else {
+      setErr(null);
+    }
+
     dispatch(
       setAppliedFilters({
         donateType: donateType,
@@ -58,6 +65,7 @@ export const useFilters = () => {
   };
 
   return {
+    err,
     donateType,
     setDonateType,
     handleApplyFilters,

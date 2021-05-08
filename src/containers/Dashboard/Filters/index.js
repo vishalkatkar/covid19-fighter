@@ -5,7 +5,7 @@ import { usePinCode } from "../../Donate/hooks";
 import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../../constants";
 
 const Filters = ({ handleResetFilter }) => {
-  const { donateType, setDonateType, handleApplyFilters } = useFilters();
+  const { err, donateType, setDonateType, handleApplyFilters } = useFilters();
 
   const {
     pinCode,
@@ -22,7 +22,7 @@ const Filters = ({ handleResetFilter }) => {
   console.log({ donateType: donateType });
   console.log({ pinCode: pinCode });
   return (
-    <Form>
+    <Form className="filter-form">
       <Row form>
         <Col md={2}>
           <FormGroup>
@@ -101,7 +101,7 @@ const Filters = ({ handleResetFilter }) => {
             onClick={() => handleApplyFilters({ state, city, block })}
           >
             Filter
-            </Button>
+          </Button>
         </Col>
         <Col md={3} className="pb-3">
           <Button
@@ -116,10 +116,15 @@ const Filters = ({ handleResetFilter }) => {
             }}
           >
             Reset
-            </Button>
+          </Button>
         </Col>
         <Col md={3}></Col>
       </Row>
+      {err && (
+        <Row>
+          <h6 className="err">{err}</h6>
+        </Row>
+      )}
     </Form>
   );
 };
