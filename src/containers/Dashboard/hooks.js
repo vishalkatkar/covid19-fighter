@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import moment from 'moment';
+import moment from "moment";
 import { setDonarList } from "./actions";
 import firebase from "../../firebase";
 
@@ -18,12 +18,12 @@ export const useDonerList = (type) => {
 
   useEffect(() => {
     getDonarList();
-  }, [isResetFilter]);
+  }, [isResetFilter, type]);
 
   const getDonarList = () => {
     const donerData = firebase.database().ref();
     donerData
-      .child(type == 'donar' ? "donarsList" : "seekersList")
+      .child(type == "donar" ? "donarsList" : "seekersList")
       .get()
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -45,15 +45,15 @@ export const useDonerList = (type) => {
   const handleVieMore = (person_data) => {
     setUserDetail(person_data);
     setIsViewMore(true);
-  }
+  };
 
-  return { 
-    donarList, 
-    getDonarList, 
-    handleResetFilter, 
+  return {
+    donarList,
+    getDonarList,
+    handleResetFilter,
     handleVieMore,
     isViewMore,
     userDetail,
-    setIsViewMore
+    setIsViewMore,
   };
 };

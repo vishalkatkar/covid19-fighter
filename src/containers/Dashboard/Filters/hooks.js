@@ -31,26 +31,28 @@ export const useFilters = (type) => {
       .ref(type)
       .orderByChild("donateType")
       .equalTo(donateType)
-      .on("child_added", (snapshot) => {
-        const list = snapshot.val();
-        console.log({ list: list });
-        if (!state && !city) {
-          filterFilet_.push(list);
-        } else {
-          if (block) {
-            if (
-              list.state === state &&
-              list.city === city &&
-              list.block === block
-            ) {
-              filterFilet_.push(list);
-            }
+      .once("value", (snapshot) => {
+        snapshot.forEach(function (childSnapshot) {
+          const list = childSnapshot.val();
+          console.log({ list: list });
+          if (!state && !city) {
+            filterFilet_.push(list);
           } else {
-            if (list.state === state && list.city === city) {
-              filterFilet_.push(list);
+            if (block) {
+              if (
+                list.state === state &&
+                list.city === city &&
+                list.block === block
+              ) {
+                filterFilet_.push(list);
+              }
+            } else {
+              if (list.state === state && list.city === city) {
+                filterFilet_.push(list);
+              }
             }
           }
-        }
+        });
       });
     console.log({ filterFilet_: filterFilet_ });
     if (filterFilet_.length) {
