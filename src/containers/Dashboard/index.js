@@ -9,7 +9,7 @@ const Dashboard = ({ type }) => {
       backgroundRepeat: 'no-repeat', 
       backgroundSize: 'cover',
       minHeight: window.innerHeight + 'px'
-    }}>
+    }} className="pb-5">
       <Header />
       <DonarList type={type} />
     </div>

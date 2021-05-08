@@ -61,6 +61,7 @@ const Donate = ({ type }) => {
       <Alert
         color="danger"
         className="float-right"
+        style={{ zIndex: 10, position: "fixed", top: 0, right: 0}}
         isOpen={isError || isLocationError}
         toggle={() => {
           setIsError(false);
@@ -86,12 +87,12 @@ const Donate = ({ type }) => {
             </Label>
             <FormGroup
               check
-              className="col-12"
+              className="col-sm-12"
               required
               onChange={(e) => setDonateType(e.target.value)}
             >
               {COVID_HELP_MAIN_CATEGORY.map((category) => (
-                <Label check className="col-3">
+                <Label check className="col-sm-3">
                   <Input type="radio" name="radio1" value={category.value} />
                   {category.title}
                 </Label>

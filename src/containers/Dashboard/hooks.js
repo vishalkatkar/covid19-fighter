@@ -6,14 +6,15 @@ import firebase from "../../firebase";
 
 export const useDonerList = (type) => {
   const dispatch = useDispatch();
+  const [isResetFilter, setIsResetFilter] = useState(false);
+  const [userDetail, setUserDetail] = useState({});
+  const [isViewMore, setIsViewMore] = useState(false);
   const unsortedData = useSelector(
     ({ dashboardReducer }) => dashboardReducer.donarList
   );
   const donarList = unsortedData.sort((a, b) => {
     return moment(b.postedDate).diff(a.postedDate);
   });
-
-  const [isResetFilter, setIsResetFilter] = useState(false);
 
   useEffect(() => {
     getDonarList();
@@ -41,5 +42,18 @@ export const useDonerList = (type) => {
     setIsResetFilter(!isResetFilter);
   };
 
-  return { donarList, getDonarList, handleResetFilter };
+  const handleVieMore = (person_data) => {
+    setUserDetail(person_data);
+    setIsViewMore(true);
+  }
+
+  return { 
+    donarList, 
+    getDonarList, 
+    handleResetFilter, 
+    handleVieMore,
+    isViewMore,
+    userDetail,
+    setIsViewMore
+  };
 };

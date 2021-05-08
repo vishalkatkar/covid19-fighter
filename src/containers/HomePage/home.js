@@ -26,7 +26,7 @@ const Home = () => {
     >
       <Header />
       <Container>
-        <section className="m-5">
+        <section className="m-2 mt-4">
           <Row className="mb-5">
             <Col sm="6" style={{ margin: "0 auto" }}>
               <Card body>
@@ -59,7 +59,7 @@ const Home = () => {
             </Col>
           </Row>
           <Row>
-            <Col sm="6" className="mt-4">
+            <Col sm="6" className="pb-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
                   Donor
@@ -73,7 +73,7 @@ const Home = () => {
                 </Button>
               </Card>
             </Col>
-            <Col sm="6" className="mt-4">
+            <Col sm="6" className="pb-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
                   Seeker
