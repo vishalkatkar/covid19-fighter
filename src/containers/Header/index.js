@@ -14,6 +14,7 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import { Logo } from "../../utils/utils";
 
 const Header = () => {
@@ -32,10 +33,10 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/">Home</NavLink>
+              <Link to="/"><NavLink>Home</NavLink></Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/donate/">Donate</NavLink>
+              <Link to="/donate/"><NavLink>Donate</NavLink></Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -43,20 +44,20 @@ const Header = () => {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  <b>Call us: </b>1234567890
+                  <b>Call us: </b>7977043566
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  <NavLink href="/donate/">Donate</NavLink>
+                  <Link to="/donate/"><NavLink>Donate</NavLink></Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink href="/get-help/">Need Help</NavLink>
+                  <Link to="/get-help/"><NavLink>Need Help</NavLink></Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink href="/donar/">Donor List</NavLink>
+                  <Link to="/donar/"><NavLink>Donor List</NavLink></Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink href="/seeker/">Seeker List</NavLink>
+                  <Link to="/seeker/"><NavLink>Seeker List</NavLink></Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
