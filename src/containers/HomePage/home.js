@@ -44,13 +44,23 @@ const Home = () => {
                   </List>
                 </CardText>
                 <Row>
-                  <Col sm="6" className="mt-2">
-                    <Button color="info" block onClick={() => handleClick("donar")}>
+                  <Col xs="6" className="mt-2">
+                    <Button
+                      size="lg"
+                      color="info"
+                      block
+                      onClick={() => handleClick("donar")}
+                    >
                       Registered Donor
                     </Button>
                   </Col>
-                  <Col sm="6" className="mt-2">
-                    <Button color="info" block onClick={() => handleClick("seeker")}>
+                  <Col xs="6" className="mt-2">
+                    <Button
+                      size="lg"
+                      color="info"
+                      block
+                      onClick={() => handleClick("seeker")}
+                    >
                       Registered Seeker
                     </Button>
                   </Col>
@@ -62,27 +72,52 @@ const Home = () => {
             <Col sm="6" className="pb-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Donor
+                  Contribute to break the covid19 chain
                 </CardTitle>
-                <CardText style={{ height: 100 }}>
-                  Help the needy to survive in this pendamic situation of
-                  COVID-19.
+                <CardText style={{ height: 140 }}>
+                  Contribute valuable following medical resources or inforamtion
+                  related to covid 19
+                  <List type="unstyled">
+                    <ul>
+                      <li>Oxygen cylinder</li>
+                      <li>Plasma Doner</li>
+                      <li>Medicines</li>
+                      <li>COVID bed</li>
+                    </ul>
+                  </List>
                 </CardText>
-                <Button color="info" onClick={() => handleClick("donate")}>
-                  Donate
+                <Button
+                  color="info"
+                  size="lg"
+                  onClick={() => handleClick("donate")}
+                >
+                  Register Here
                 </Button>
               </Card>
             </Col>
             <Col sm="6" className="pb-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Seeker
+                  Register here to get help
                 </CardTitle>
-                <CardText style={{ height: 100 }}>
-                  We will try to help you out in the best way we can.
+                <CardText style={{ height: 140 }}>
+                  If you looking for help with following medical resources,
+                  Kindly register here.
+                  <List type="unstyled">
+                    <ul>
+                      <li>Oxygen cylinder</li>
+                      <li>Plasma Doner</li>
+                      <li>Medicines</li>
+                      <li>COVID bed</li>
+                    </ul>
+                  </List>
                 </CardText>
-                <Button color="info" onClick={() => handleClick("get-help")}>
-                  Get Help
+                <Button
+                  color="info"
+                  size="lg"
+                  onClick={() => handleClick("get-help")}
+                >
+                  Register Here
                 </Button>
               </Card>
             </Col>

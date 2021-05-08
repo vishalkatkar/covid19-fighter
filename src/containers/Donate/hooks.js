@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import moment from 'moment';
+import moment from "moment";
 import firebase from "../../firebase";
 import { validationRegex } from "../../utils/utils";
 import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
@@ -41,6 +41,11 @@ export const useDonate = (type) => {
         reqType = "seekersList";
       }
 
+      if (!pinCode || pinCode.length !== 6) {
+        seterrMessage("Enter valid pincode!");
+        return false;
+      }
+
       const reqObject = {
         donateType: donateType,
         donarName: donarName,
@@ -72,7 +77,19 @@ export const useDonate = (type) => {
   const validation = () => {
     setIsError(true);
 
-    if (
+    if (!donateType) {
+      seterrMessage("Please Select Type!");
+      return false;
+    } else if (!donarName || !validationRegex.nameRegex.test(donarName)) {
+      seterrMessage("Please Enter Valid Name!");
+      return false;
+    } else if (!mobileNumber || !validationRegex.mobile.test(mobileNumber)) {
+      seterrMessage("Please Enter Valid Mobile Number!");
+      return false;
+    } else if (!age) {
+      seterrMessage("Please Enter Age!");
+      return false;
+    } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[0].value &&
       !noOfCylinder
@@ -99,18 +116,6 @@ export const useDonate = (type) => {
       !noOfBed
     ) {
       seterrMessage("Please Add Number of Beds!");
-      return false;
-    } else if (!donateType) {
-      seterrMessage("Please Select Type!");
-      return false;
-    } else if (!donarName || !validationRegex.nameRegex.test(donarName)) {
-      seterrMessage("Please Enter Valid Name!");
-      return false;
-    } else if (!mobileNumber || !validationRegex.mobile.test(mobileNumber)) {
-      seterrMessage("Please Enter Valid Mobile Number!");
-      return false;
-    } else if (!age) {
-      seterrMessage("Please Enter Age!");
       return false;
     } else {
       setIsError(false);
@@ -169,6 +174,7 @@ export const usePinCode = () => {
       setState(null);
       setCity(null);
       setPostOffice(null);
+      setIsLocationError("Please Enter Valid Pincode!");
     }
   }, [pinCode]);
 

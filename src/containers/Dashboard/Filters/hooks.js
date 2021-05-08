@@ -10,7 +10,7 @@ export const useFilters = () => {
 
   const handleApplyFilters = async ({ state = "", city = "", block = "" }) => {
     if (!donateType && !state && !city && !block) {
-      setErr("Atleast select one filter!");
+      setErr("Select Filter!");
       return;
     } else {
       setErr(null);

@@ -60,8 +60,7 @@ const Donate = ({ type }) => {
       <Header />
       <Alert
         color="danger"
-        className="float-right"
-        style={{ zIndex: 10, position: "fixed", top: 0, right: 0}}
+        style={{ zIndex: 10 }}
         isOpen={isError || isLocationError}
         toggle={() => {
           setIsError(false);

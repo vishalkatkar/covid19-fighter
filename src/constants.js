@@ -11,6 +11,7 @@ export const BLOOD_GROUP = [
   { title: "B+", value: "B+" },
   { title: "B-", value: "B-" },
   { title: "AB+", value: "AB+" },
-  { title: "AB", value: "AB-" },
-  { title: "O", value: "O" },
+  { title: "AB-", value: "AB-" },
+  { title: "O+", value: "O+" },
+  { title: "O-", value: "O-" },
 ];
