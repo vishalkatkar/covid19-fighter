@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAppliedFilters, setDonarList } from "../actions";
 import firebase from "../../../firebase";
 
-export const useFilters = () => {
+export const useFilters = (type) => {
   const dispatch = useDispatch();
   const [donateType, setDonateType] = useState(null);
   const [err, setErr] = useState(null);
@@ -25,19 +25,15 @@ export const useFilters = () => {
       })
     );
 
-    // console.log({ state: state });
-    // console.log({ state: state });
-    // console.log({ city: city });
-    // console.log({ block: block });
     let filterFilet_ = [];
     await firebase
       .database()
-      .ref("donarsList")
+      .ref(type)
       .orderByChild("donateType")
       .equalTo(donateType)
       .on("child_added", (snapshot) => {
         const list = snapshot.val();
-        // console.log({ list: list });
+        console.log({ list: list });
         if (!state && !city) {
           filterFilet_.push(list);
         } else {

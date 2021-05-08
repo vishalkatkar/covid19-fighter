@@ -4,8 +4,8 @@ import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import { usePinCode } from "../../Donate/hooks";
 import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../../constants";
 
-const Filters = ({ handleResetFilter }) => {
-  const { err, donateType, setDonateType, handleApplyFilters } = useFilters();
+const Filters = ({ handleResetFilter, type }) => {
+  const { err, donateType, setDonateType, handleApplyFilters } = useFilters(type);
 
   const {
     pinCode,
@@ -19,8 +19,6 @@ const Filters = ({ handleResetFilter }) => {
     setIsLocationError,
     locationErrMsg,
   } = usePinCode();
-  console.log({ donateType: donateType });
-  console.log({ pinCode: pinCode });
   return (
     <Form className="filter-form">
       <Row form>

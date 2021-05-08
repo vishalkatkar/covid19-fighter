@@ -51,7 +51,7 @@ const DonarList = ({type}) => {
           </Row>
           </section>
       : <>
-      <Filters handleResetFilter={handleResetFilter} />
+      <Filters handleResetFilter={handleResetFilter} type={type == 'donar' ? "donarsList" : "seekersList"} />
       <Table striped bordered responsive>
         <thead>
           <tr>
