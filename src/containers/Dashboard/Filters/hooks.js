@@ -38,7 +38,6 @@ export const useFilters = (type) => {
       .once("value", (snapshot) => {
         snapshot.forEach(function (childSnapshot) {
           const list = childSnapshot.val();
-          console.log({ list: list });
           if (!state && !city) {
             filterFilet_.push(list);
           } else {
@@ -58,9 +57,7 @@ export const useFilters = (type) => {
           }
         });
       });
-    console.log({ filterFilet_: filterFilet_ });
     if (filterFilet_.length) {
-      console.log("here");
       dispatch(setDonarList(filterFilet_));
     } else {
       dispatch(setDonarList([]));

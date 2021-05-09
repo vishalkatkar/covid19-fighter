@@ -31,7 +31,6 @@ export const useDonerList = (type) => {
       .get()
       .then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
           dispatch(setDonarList(Object.values(snapshot.val())));
         } else {
           dispatch(setDonarList([]));

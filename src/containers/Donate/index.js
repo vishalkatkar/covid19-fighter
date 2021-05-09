@@ -49,7 +49,6 @@ const Donate = ({ type }) => {
     locationErrMsg,
   } = usePinCode();
 
-  console.log({ postOffice: postOffice });
   return (
     <div
       style={{
