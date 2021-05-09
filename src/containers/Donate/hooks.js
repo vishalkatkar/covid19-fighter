@@ -84,7 +84,7 @@ export const useDonate = (type) => {
       seterrMessage("Please select donation type!");
       return false;
     } else if (!donarName || !validationRegex.nameRegex.test(donarName)) {
-      seterrMessage("Please name!");
+      seterrMessage("Please enter your name!");
       return false;
     } else if (!mobileNumber || !validationRegex.mobile.test(mobileNumber)) {
       seterrMessage("Please enter valid mobile number!");
