@@ -25,6 +25,8 @@ const Donate = ({ type }) => {
     setAge,
     setNoOfCylinder,
     setBloogGroup,
+    setNoOfUnits,
+    setHospitalName,
     setMedicineName,
     setNoOfbed,
     isError,
@@ -102,7 +104,7 @@ const Donate = ({ type }) => {
             <Label for="name">Name</Label>
             <Input
               type="text"
-              placeholder="name"
+              placeholder="Name"
               id="name"
               required
               onChange={(e) => setName(e.target.value)}
@@ -112,7 +114,7 @@ const Donate = ({ type }) => {
             <Label for="mobile">Mobile Number</Label>
             <Input
               type="number"
-              placeholder="mobile number"
+              placeholder="Mobile number"
               required
               id="mobile"
               onChange={(e) => setMobileNumber(e.target.value)}
@@ -199,6 +201,28 @@ const Donate = ({ type }) => {
                   <option value={category.value}>{category.title}</option>
                 ))}
               </Input>
+            </FormGroup>
+          )}
+          {donateType && donateType === "plasma" && (
+            <FormGroup>
+              <Label for="noOfUnit">Number of Units</Label>
+              <Input
+                type="text"
+                id="noOfUnit"
+                placeholder="Number of units"
+                onChange={(e) => setNoOfUnits(e.target.value)}
+              />
+            </FormGroup>
+          )}
+          {donateType && donateType === "plasma" && (
+            <FormGroup>
+              <Label for="hospitalName">Hospital/Lab Name</Label>
+              <Input
+                type="text"
+                id="hospitalName"
+                placeholder="Hospital/Lab Name"
+                onChange={(e) => setHospitalName(e.target.value)}
+              />
             </FormGroup>
           )}
           {donateType && donateType === "medicines" && (

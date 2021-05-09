@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { setDonarList } from "./actions";
+import { setDonarList, setAppliedFilters } from "./actions";
 import firebase from "../../firebase";
 
 export const useDonerList = (type) => {
@@ -19,6 +19,10 @@ export const useDonerList = (type) => {
   useEffect(() => {
     getDonarList();
   }, [isResetFilter, type]);
+
+  useEffect(() => {
+    dispatch(setAppliedFilters({}));
+  }, []);
 
   const getDonarList = () => {
     const donerData = firebase.database().ref();
@@ -40,6 +44,7 @@ export const useDonerList = (type) => {
 
   const handleResetFilter = () => {
     setIsResetFilter(!isResetFilter);
+    dispatch(setAppliedFilters({}));
   };
 
   const handleVieMore = (person_data) => {

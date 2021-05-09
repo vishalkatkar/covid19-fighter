@@ -5,7 +5,11 @@ import firebase from "../../../firebase";
 
 export const useFilters = (type) => {
   const dispatch = useDispatch();
-  const [donateType, setDonateType] = useState(null);
+  const appliedFilters = useSelector(
+    ({ dashboardReducer }) => dashboardReducer.appliedFilters
+  );
+  const { donateType: donateType_ = "" } = appliedFilters;
+  const [donateType, setDonateType] = useState(donateType_ || null);
   const [err, setErr] = useState(null);
 
   const handleApplyFilters = async ({ state = "", city = "", block = "" }) => {

@@ -13,7 +13,7 @@ import {
 import { useDonerList } from "./hooks";
 import Filters from "./Filters";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const DonarList = ({ type }) => {
   const {
@@ -93,10 +93,23 @@ const DonarList = ({ type }) => {
                     </CardTitle>
                   )}
                   {userDetail?.bloodGroup && (
-                    <CardTitle>
-                      <b>Blood Group: </b>
-                      {userDetail?.bloodGroup || "NA"}
-                    </CardTitle>
+                    <>
+                      <CardTitle>
+                        <b>Blood Group: </b>
+                        {userDetail?.bloodGroup || "NA"}
+                      </CardTitle>
+                      <CardTitle>
+                        <b>
+                          Number of units{" "}
+                          {type == "donar" ? "available " : "Needed "}:{" "}
+                        </b>
+                        {userDetail?.noOfUnits || "NA"}
+                      </CardTitle>
+                      <CardTitle>
+                        <b>{type == "donar" ? "Available " : "Needed "} At: </b>
+                        {userDetail?.hospitalName || "NA"}
+                      </CardTitle>
+                    </>
                   )}
                   <Button color="info" onClick={() => setIsViewMore(false)}>
                     Go Back
@@ -119,7 +132,16 @@ const DonarList = ({ type }) => {
                   <th>Posted Date</th>
                   <th>{type == "donar" ? "Donate" : "Need"} Type</th>
                   {donateType === "plasma" && (
-                    <th>Plasma {type == "donar" ? "available" : "Needed"}</th>
+                    <>
+                      <th>
+                        Blood Group {type == "donar" ? "available" : "Needed"}
+                      </th>
+                      <th>
+                        Number of units{" "}
+                        {type == "donar" ? "available" : "Needed"}
+                      </th>
+                      <th>At</th>
+                    </>
                   )}
                   {donateType === "oxygen" && (
                     <th>Cylinder {type == "donar" ? "available" : "Needed"}</th>
@@ -132,8 +154,8 @@ const DonarList = ({ type }) => {
                   )}
 
                   <th>{type == "donar" ? "Donor" : "Seeker"} Name</th>
-                  <th>Pincode</th>
-                  <th>State</th>
+                  {/* <th>Pincode</th> */}
+                  {/* <th>State</th> */}
                   <th>City</th>
                   <th>Block</th>
                   <th>Get Details</th>
@@ -151,6 +173,8 @@ const DonarList = ({ type }) => {
                       donateType,
                       medicineName,
                       mobileNumber,
+                      noOfUnits,
+                      hospitalName,
                       noOfBed,
                       noOfCylinder,
                       pinCode,
@@ -165,7 +189,11 @@ const DonarList = ({ type }) => {
                         </td>
                         <td>{donateType}</td>
                         {donateType === "plasma" && (
-                          <td>{bloodGroup || "NA"}</td>
+                          <>
+                            <td>{bloodGroup || "NA"}</td>
+                            <td>{noOfUnits || "NA"}</td>
+                            <td>{hospitalName || "NA"}</td>
+                          </>
                         )}
                         {donateType === "oxygen" && (
                           <td>{noOfCylinder || "NA"}</td>
@@ -175,8 +203,8 @@ const DonarList = ({ type }) => {
                         )}
                         {donateType === "beds" && <td>{noOfBed || "NA"}</td>}
                         <td>{donarName}</td>
-                        <td>{pinCode}</td>
-                        <td>{state}</td>
+                        {/* <td>{pinCode}</td> */}
+                        {/* <td>{state}</td> */}
                         <td>{city}</td>
                         <td>{block}</td>
                         <td>
@@ -197,6 +225,8 @@ const DonarList = ({ type }) => {
                                 pinCode,
                                 postedDate,
                                 state,
+                                noOfUnits,
+                                hospitalName,
                               })
                             }
                           >

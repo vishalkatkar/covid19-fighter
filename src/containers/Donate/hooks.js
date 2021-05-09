@@ -14,6 +14,8 @@ export const useDonate = (type) => {
   const [age, setAge] = useState(null);
   const [noOfCylinder, setNoOfCylinder] = useState(null);
   const [bloodGroup, setBloogGroup] = useState(null);
+  const [noOfUnits, setNoOfUnits] = useState(null);
+  const [hospitalName, setHospitalName] = useState(null);
   const [medicineName, setMedicineName] = useState(null);
   const [noOfBed, setNoOfbed] = useState(null);
   const [isError, setIsError] = useState(false);
@@ -41,11 +43,6 @@ export const useDonate = (type) => {
         reqType = "seekersList";
       }
 
-      if (!pinCode || pinCode.length !== 6) {
-        seterrMessage("Enter valid pincode!");
-        return false;
-      }
-
       const reqObject = {
         donateType: donateType,
         donarName: donarName,
@@ -57,12 +54,18 @@ export const useDonate = (type) => {
         block: block,
         noOfCylinder: noOfCylinder || "",
         bloodGroup: bloodGroup || "",
+        noOfUnits: noOfUnits || "",
+        hospitalName: hospitalName || "",
         medicineName: medicineName || "",
         noOfBed: noOfBed || "",
         postedDate: moment().format(),
       };
 
       if (isValid) {
+        if (!pinCode || pinCode.length !== 6) {
+          seterrMessage("Enter valid pincode!");
+          return false;
+        }
         setIsError(false);
         const donerlistRef = firebase.database().ref(reqType);
         donerlistRef.push().set(reqObject);
@@ -78,44 +81,46 @@ export const useDonate = (type) => {
     setIsError(true);
 
     if (!donateType) {
-      seterrMessage("Please Select Type!");
+      seterrMessage("Please select donation type!");
       return false;
     } else if (!donarName || !validationRegex.nameRegex.test(donarName)) {
-      seterrMessage("Please Enter Valid Name!");
+      seterrMessage("Please name!");
       return false;
     } else if (!mobileNumber || !validationRegex.mobile.test(mobileNumber)) {
-      seterrMessage("Please Enter Valid Mobile Number!");
+      seterrMessage("Please enter valid mobile number!");
       return false;
-    } else if (!age) {
-      seterrMessage("Please Enter Age!");
-      return false;
-    } else if (
+    }
+    // else if (!age) {
+    //   seterrMessage("Please enter age!");
+    //   return false;
+    // }
+    else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[1].value &&
       !noOfCylinder
     ) {
-      seterrMessage("Please Add Number of Cylender!");
+      seterrMessage("Please enter number of cylinders!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[0].value &&
       !bloodGroup
     ) {
-      seterrMessage("Please Add Blood Group!");
+      seterrMessage("Please select blood group!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[2].value &&
       !medicineName
     ) {
-      seterrMessage("Please Add Medicines Name!");
+      seterrMessage("Please enter medicine name!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[3].value &&
       !noOfBed
     ) {
-      seterrMessage("Please Add Number of Beds!");
+      seterrMessage("Please enter number of beds!");
       return false;
     } else {
       setIsError(false);
@@ -131,6 +136,8 @@ export const useDonate = (type) => {
     setMobileNumber,
     setNoOfCylinder,
     setBloogGroup,
+    setNoOfUnits,
+    setHospitalName,
     setMedicineName,
     setNoOfbed,
     setAge,
