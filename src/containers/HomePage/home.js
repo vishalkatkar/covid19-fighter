@@ -37,7 +37,7 @@ const Home = () => {
                   <List type="unstyled">
                     <ul>
                       <li>Oxygen cylinder</li>
-                      <li>Plasma Doner</li>
+                      <li>Plasma donor</li>
                       <li>Medicines</li>
                       <li>COVID bed</li>
                     </ul>
@@ -46,22 +46,20 @@ const Home = () => {
                 <Row>
                   <Col xs="6" className="mt-2">
                     <Button
-                      size="lg"
                       color="info"
                       block
                       onClick={() => handleClick("donar")}
                     >
-                      Registered Donor
+                      List of Donor
                     </Button>
                   </Col>
                   <Col xs="6" className="mt-2">
                     <Button
-                      size="lg"
                       color="info"
                       block
                       onClick={() => handleClick("seeker")}
                     >
-                      Registered Seeker
+                      List of Seeker
                     </Button>
                   </Col>
                 </Row>
@@ -72,15 +70,15 @@ const Home = () => {
             <Col sm="6" className="pb-4">
               <Card body>
                 <CardTitle tag="h5" className="text-center">
-                  Contribute to break the covid19 chain
+                  Contribute to break the COVID19 chain
                 </CardTitle>
-                <CardText style={{ height: 140 }}>
+                <CardText>
                   Contribute valuable following medical resources or inforamtion
-                  related to covid 19
+                  related to COVID19
                   <List type="unstyled">
                     <ul>
                       <li>Oxygen cylinder</li>
-                      <li>Plasma Doner</li>
+                      <li>Plasma donor</li>
                       <li>Medicines</li>
                       <li>COVID bed</li>
                     </ul>
@@ -100,13 +98,13 @@ const Home = () => {
                 <CardTitle tag="h5" className="text-center">
                   Register here to get help
                 </CardTitle>
-                <CardText style={{ height: 140 }}>
+                <CardText>
                   If you looking for help with following medical resources,
-                  Kindly register here.
+                  kindly register here.
                   <List type="unstyled">
                     <ul>
                       <li>Oxygen cylinder</li>
-                      <li>Plasma Doner</li>
+                      <li>Plasma donor</li>
                       <li>Medicines</li>
                       <li>COVID bed</li>
                     </ul>

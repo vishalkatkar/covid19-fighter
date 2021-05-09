@@ -91,14 +91,14 @@ export const useDonate = (type) => {
       return false;
     } else if (
       donateType &&
-      donateType == COVID_HELP_MAIN_CATEGORY[0].value &&
+      donateType == COVID_HELP_MAIN_CATEGORY[1].value &&
       !noOfCylinder
     ) {
       seterrMessage("Please Add Number of Cylender!");
       return false;
     } else if (
       donateType &&
-      donateType == COVID_HELP_MAIN_CATEGORY[1].value &&
+      donateType == COVID_HELP_MAIN_CATEGORY[0].value &&
       !bloodGroup
     ) {
       seterrMessage("Please Add Blood Group!");
