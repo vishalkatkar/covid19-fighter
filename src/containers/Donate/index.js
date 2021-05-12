@@ -11,7 +11,6 @@ import {
   Alert,
   Modal,
   ModalBody,
-  ModalFooter,
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../constants";
 

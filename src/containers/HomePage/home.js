@@ -50,7 +50,7 @@ const Home = () => {
                       block
                       onClick={() => handleClick("donar")}
                     >
-                      List of Donor
+                      List of Donors
                     </Button>
                   </Col>
                   <Col xs="6" className="mt-2">
@@ -59,7 +59,7 @@ const Home = () => {
                       block
                       onClick={() => handleClick("seeker")}
                     >
-                      List of Seeker
+                      List of Seekers
                     </Button>
                   </Col>
                 </Row>
