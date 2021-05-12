@@ -4,22 +4,28 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import firebase from "../../firebase";
 import { validationRegex } from "../../utils/utils";
-import { COVID_HELP_MAIN_CATEGORY } from "../../constants";
+import { COVID_HELP_MAIN_CATEGORY, PINCODE_API } from "../../constants";
 
 export const useDonate = (type) => {
   const history = useHistory();
   const [donateType, setDonateType] = useState(null);
+  const [donateTypeErr, setDonateTypeErr] = useState(null);
   const [donarName, setName] = useState(null);
+  const [donarNameErr, setNameErr] = useState(null);
   const [mobileNumber, setMobileNumber] = useState(null);
-  const [age, setAge] = useState(null);
+  const [mobileNumberErr, setMobileNumberErr] = useState(null);
+  const [age, setAge] = useState(0);
   const [noOfCylinder, setNoOfCylinder] = useState(null);
+  const [noOfCylinderErr, setNoOfCylinderErr] = useState(null);
   const [bloodGroup, setBloogGroup] = useState(null);
+  const [bloodGroupErr, setBloogGroupErr] = useState(null);
   const [noOfUnits, setNoOfUnits] = useState(null);
   const [hospitalName, setHospitalName] = useState(null);
   const [medicineName, setMedicineName] = useState(null);
   const [noOfBed, setNoOfbed] = useState(null);
+  const [note, setNote] = useState(null);
+  const [pincodeErr, setPincodeErr] = useState(null);
   const [isError, setIsError] = useState(false);
-  const [errMessage, seterrMessage] = useState("");
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -63,7 +69,7 @@ export const useDonate = (type) => {
 
       if (isValid) {
         if (!pinCode || pinCode.length !== 6) {
-          seterrMessage("Enter valid pincode!");
+          setPincodeErr("Enter valid pincode!");
           return false;
         }
         setIsError(false);
@@ -73,54 +79,54 @@ export const useDonate = (type) => {
       }
     } catch (err) {
       setIsError(true);
-      seterrMessage(err);
     }
   };
 
   const validation = () => {
     setIsError(true);
+    setDonateTypeErr(null);
+    setNameErr(null);
+    setMobileNumberErr(null);
+    setNoOfCylinderErr(null);
+    setBloogGroupErr(null);
 
     if (!donateType) {
-      seterrMessage("Please select donation type!");
+      setDonateTypeErr("Please select donation type!");
       return false;
     } else if (!donarName || !validationRegex.nameRegex.test(donarName)) {
-      seterrMessage("Please enter your name!");
+      setNameErr("Please enter valid name!");
       return false;
     } else if (!mobileNumber || !validationRegex.mobile.test(mobileNumber)) {
-      seterrMessage("Please enter valid mobile number!");
+      setMobileNumberErr("Please enter valid mobile number!");
       return false;
     }
-    // else if (!age) {
-    //   seterrMessage("Please enter age!");
-    //   return false;
-    // }
     else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[1].value &&
       !noOfCylinder
     ) {
-      seterrMessage("Please enter number of cylinders!");
+      setNoOfCylinderErr("Please enter number of cylinders!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[0].value &&
       !bloodGroup
     ) {
-      seterrMessage("Please select blood group!");
+      setBloogGroupErr("Please select blood group!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[2].value &&
       !medicineName
     ) {
-      seterrMessage("Please enter medicine name!");
+      setNoOfCylinderErr("Please enter medicine name!");
       return false;
     } else if (
       donateType &&
       donateType == COVID_HELP_MAIN_CATEGORY[3].value &&
       !noOfBed
     ) {
-      seterrMessage("Please enter number of beds!");
+      setNoOfCylinderErr("Please enter number of beds!");
       return false;
     } else {
       setIsError(false);
@@ -142,10 +148,15 @@ export const useDonate = (type) => {
     setNoOfbed,
     setAge,
     isError,
-    errMessage,
+    pincodeErr,
     setIsError,
     modal,
     gotoHome,
+    donateTypeErr,
+    donarNameErr,
+    mobileNumberErr,
+    noOfCylinderErr,
+    bloodGroupErr
   };
 };
 
@@ -155,14 +166,11 @@ export const usePinCode = () => {
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
   const [block, setBlock] = useState(null);
-  const [isLocationError, setIsLocationError] = useState(false);
-  const [errMessage, seterrMessage] = useState("");
 
   useEffect(() => {
     if (pinCode && pinCode.length === 6) {
-      const apiURL = "https://api.postalpincode.in/pincode/";
       const fetchData = async () => {
-        const response = await axios.get(apiURL + pinCode);
+        const response = await axios.get(PINCODE_API + pinCode);
         const { PostOffice = [], Status = "" } = response.data[0];
 
         if (Status == "Success") {
@@ -170,10 +178,6 @@ export const usePinCode = () => {
           setState(State);
           setCity(Region);
           setPostOffice(PostOffice);
-          setIsLocationError(false);
-        } else {
-          setIsLocationError(true);
-          seterrMessage("Please Enter Valid Pincode!");
         }
       };
       fetchData();
@@ -181,7 +185,6 @@ export const usePinCode = () => {
       setState(null);
       setCity(null);
       setPostOffice(null);
-      setIsLocationError("Please Enter Valid Pincode!");
     }
   }, [pinCode]);
 
@@ -191,10 +194,7 @@ export const usePinCode = () => {
     city,
     block,
     postOffice,
-    isLocationError,
     setPincode,
     setBlock,
-    setIsLocationError,
-    locationErrMsg: errMessage,
   };
 };

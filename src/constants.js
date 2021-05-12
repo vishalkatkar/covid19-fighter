@@ -15,3 +15,5 @@ export const BLOOD_GROUP = [
   { title: "O+", value: "O+" },
   { title: "O-", value: "O-" },
 ];
+
+export const PINCODE_API = "https://api.postalpincode.in/pincode/";

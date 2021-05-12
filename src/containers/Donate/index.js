@@ -11,6 +11,7 @@ import {
   Alert,
   Modal,
   ModalBody,
+  FormFeedback
 } from "reactstrap";
 import { COVID_HELP_MAIN_CATEGORY, BLOOD_GROUP } from "../../constants";
 
@@ -28,11 +29,14 @@ const Donate = ({ type }) => {
     setHospitalName,
     setMedicineName,
     setNoOfbed,
-    isError,
-    errMessage,
-    setIsError,
+    pincodeErr,
     gotoHome,
     modal,
+    donateTypeErr,
+    donarNameErr,
+    mobileNumberErr,
+    noOfCylinderErr,
+    bloodGroupErr
   } = useDonate(type);
 
   const {
@@ -41,11 +45,8 @@ const Donate = ({ type }) => {
     city,
     block,
     postOffice,
-    isLocationError,
     setPincode,
     setBlock,
-    setIsLocationError,
-    locationErrMsg,
   } = usePinCode();
 
   return (
@@ -58,20 +59,6 @@ const Donate = ({ type }) => {
       }}
     >
       <Header />
-      <Alert
-        color="danger"
-        style={{ zIndex: 10 }}
-        isOpen={isError || isLocationError}
-        toggle={() => {
-          setIsError(false);
-          setIsLocationError(false);
-        }}
-        fade={false}
-      >
-        {errMessage || locationErrMsg
-          ? errMessage || locationErrMsg
-          : "Please Fill Valid Information!"}
-      </Alert>
       <Container className="p-4">
         <Form
           className="col-md-7 bg-light p-4 rounded-sm"
@@ -92,8 +79,9 @@ const Donate = ({ type }) => {
             >
               {COVID_HELP_MAIN_CATEGORY.map((category) => (
                 <Label check className="col-sm-3">
-                  <Input type="radio" name="radio1" value={category.value} />
+                  <Input type="radio" name="radio1" value={category.value} invalid={donateTypeErr} />
                   {category.title}
+                  <FormFeedback>{donateTypeErr}</FormFeedback>
                 </Label>
               ))}
             </FormGroup>
@@ -106,7 +94,9 @@ const Donate = ({ type }) => {
               id="name"
               required
               onChange={(e) => setName(e.target.value)}
+              invalid={donarNameErr}
             />
+          <FormFeedback>{donarNameErr}</FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label for="mobile">Mobile Number</Label>
@@ -116,7 +106,9 @@ const Donate = ({ type }) => {
               required
               id="mobile"
               onChange={(e) => setMobileNumber(e.target.value)}
+              invalid={mobileNumberErr}
             />
+            <FormFeedback>{mobileNumberErr}</FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label for="age">Age</Label>
@@ -138,7 +130,9 @@ const Donate = ({ type }) => {
               required
               id="pincodeSelect"
               onChange={(e) => setPincode(e.target.value)}
+              invalid={pincodeErr}
             />
+            <FormFeedback>{pincodeErr}</FormFeedback>
           </FormGroup>
           {state && state !== "" && (
             <FormGroup>
@@ -181,7 +175,9 @@ const Donate = ({ type }) => {
                 placeholder="Number of cylinders"
                 id="oxygenAvailable"
                 onChange={(e) => setNoOfCylinder(e.target.value)}
+                invalid={noOfCylinderErr}
               />
+              <FormFeedback>{noOfCylinderErr}</FormFeedback>
             </FormGroup>
           )}
           {donateType && donateType === "plasma" && (
@@ -193,12 +189,14 @@ const Donate = ({ type }) => {
                 id="bloogGroupSelect"
                 required
                 onChange={(e) => setBloogGroup(e.target.value)}
+                invalid={bloodGroupErr}
               >
                 <option value="">----Select-----</option>
                 {BLOOD_GROUP.map((category) => (
                   <option value={category.value}>{category.title}</option>
                 ))}
               </Input>
+              <FormFeedback>{bloodGroupErr}</FormFeedback>
             </FormGroup>
           )}
           {donateType && donateType === "plasma" && (
@@ -231,7 +229,9 @@ const Donate = ({ type }) => {
                 placeholder="Name of medicine"
                 id="medicineName"
                 onChange={(e) => setMedicineName(e.target.value)}
+                invalid={noOfCylinderErr}
               />
+              <FormFeedback>{noOfCylinderErr}</FormFeedback>
             </FormGroup>
           )}
           {donateType && donateType === "beds" && (
@@ -244,7 +244,9 @@ const Donate = ({ type }) => {
                 placeholder="Number of beds"
                 id="bedAvailable"
                 onChange={(e) => setNoOfbed(e.target.value)}
+                invalid={noOfCylinderErr}
               />
+              <FormFeedback>{noOfCylinderErr}</FormFeedback>
             </FormGroup>
           )}
           <Button
